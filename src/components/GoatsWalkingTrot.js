@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { actions } from './GwtStore';
+import { actions, selectors } from './GwtStore';
 
 import './GoatsWalkingTrot.css';
 
@@ -49,7 +49,7 @@ class GoatsWalkingTrot extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    givens: state.given,
+    ids: selectors.given.selectAllIds,
   }
 }
 

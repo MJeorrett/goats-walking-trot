@@ -1,4 +1,4 @@
-import { configureStore, createSlice } from 'redux-starter-kit';
+import { configureStore, createSlice, createSelector } from 'redux-starter-kit';
 import { combineReducers } from 'redux';
 const genUuid = require('uuid/v4');
 
@@ -7,41 +7,55 @@ const generateId = () => {
 };
 
 const givenSlice = createSlice({
-  initialState: [],
+  initialState: {
+    ids: [],
+    items: {},
+  },
   reducers: {
     addGiven: (state, action) => {
-      state.push({
-        id: generateId(),
-        text: action.payload,
-      })
+      const { id, text, whenIds } = action.payload;
+      state.ids.unshift(id);
+      state.items[id] = { id, text, whenIds };
+    },
+    updateGivenText: (state, action) => {
+      const { id, text } = action.payload;
+      state.items[id].text = text;
+    },
+    addWhenIdToGiven: (state, action) => {
+      const { givenId, whenId } = action.payload;
+      state.items[givenId].whenIds.unshift(whenId);
     }
   }
 });
 
 const whenSlice = createSlice({
-  initialState: [],
+  initialState: {
+    ids: [],
+    items: {},
+  },
   reducers: {
     addWhen: (state, action) => {
-      state.push({
-        id: generateId(),
-        givenId: action.payload.givenId,
-        text: action.payload.text,
-      })
+      const { id, text, thenIds } = action.payload;
+      state.ids.push(id);
+      state.items[id] = { id, text, thenIds };
+    },
+    updateWhenText: (state, action) => {
+      const { id, text } = action.payload;
+      state.items[id].text = text;
     }
   }
 });
 
-
-
 const thenSlice = createSlice({
-  initialState: [],
+  initialState: {
+    ids: [],
+    items: {},
+  },
   reducers: {
     addThen: (state, action) => {
-      state.push({
-        id: generateId(),
-        whenId: action.payload.whenId,
-        text: action.payload,
-      })
+      const { id, text } = action.payload;
+      state.ids.unshift(id);
+      state.items[id] = { id, text };
     }
   }
 })
@@ -56,4 +70,75 @@ const store = configureStore({
 
 export default store;
 
-export const actions = givenSlice.actions;
+export const actions = {
+  given: {
+    add: () => {
+      const then = {
+        id: generateId(),
+        text: '',
+      };
+      const when = {
+        id: generateId(),
+        text: '',
+        thenIds: [then.id]
+      };
+      const given = {
+        id: generateId(),
+        text: '',
+        whenIds: [when.id]
+      };
+      return (dispatch) => {
+        dispatch(givenSlice.actions.addGiven(given));
+        dispatch(whenSlice.actions.addWhen(when));
+        dispatch(thenSlice.actions.addThen(then));
+      }
+    },
+    updateText: givenSlice.actions.updateGivenText,
+  },
+  when: {
+    add: givenId => {
+      const then = {
+        id: generateId(),
+        text: '',
+      };
+      const when = {
+        id: generateId(),
+        text: '',
+        thenIds: [then.id]
+      };
+      return dispatch => {
+        dispatch(givenSlice.actions.addWhenIdToGiven({ givenId, whenId: when.id }));
+        dispatch(whenSlice.actions.addWhen(when));
+        dispatch(thenSlice.actions.addThen(then));
+      }
+    },
+    updateText: whenSlice.actions.updateWhenText,
+  },
+}
+
+const givenStateSelector = state => state.given;
+const whenStateSelector = state => state.when;
+const thenStateSelector = state => state.then;
+
+const selectItemId = (state, id) => id;
+
+export const selectors = {
+  given: {
+    selectAllIds: createSelector(
+      givenStateSelector,
+      givenState => givenState.ids,
+    ),
+    makeSelectById: () => createSelector(
+      givenStateSelector,
+      selectItemId,
+      (givenState, id) => givenState.items[id]
+    ),
+  },
+  when: {
+    makeSelectById: () => createSelector(
+      whenStateSelector,
+      selectItemId,
+      (whenState, id) => whenState.items[id],
+    )
+  }
+}

@@ -3,7 +3,7 @@ import { Provider } from 'react-redux';
 
 import './App.css';
 
-import GoatsWalkingTrot from './components/GoatsWalkingTrot';
+import GwtsContainer from './components/GwtsContainer';
 import store from './components/GwtStore';
 
 function App() {
@@ -12,7 +12,7 @@ function App() {
       <Provider store={store}>
         <h1>Goats Walking Trot</h1>
         <p>A simple app for enabling the writing of terse GWT.</p>
-        <GoatsWalkingTrot />
+        <GwtsContainer />
       </Provider>
     </div>
   );
