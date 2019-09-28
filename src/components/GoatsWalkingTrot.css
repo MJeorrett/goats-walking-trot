@@ -10,6 +10,7 @@
   margin-left: 3em;
 }
 
+.gwt-container .given-field,
 .gwt-container .when-field {
   margin-bottom: 0.8em;
 }
@@ -48,9 +49,13 @@
   border: 1px solid dodgerblue;
 }
 
-.add-when-container {
+.gwt-container .add-gwt-container {
   display: flex;
   justify-content: center;
   margin-top: 0.4em;
   margin-bottom: 0.4em;
+}
+
+.gwt-container .add-given-button {
+  font-size: 2.5em;
 }
