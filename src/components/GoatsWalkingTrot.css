@@ -31,7 +31,7 @@
   margin-right: 0.6em;
 }
 
-.gwt-container button {
+.gwt-container .add-button {
   color: dodgerblue;
   cursor: pointer;
   background-color: white;
@@ -42,8 +42,8 @@
   white-space: nowrap;
 }
 
-.gwt-container button:hover,
-.gwt-container button:active {
+.gwt-container .add-button:hover,
+.gwt-container .add-button:active {
   margin: 0;
   border: 1px solid dodgerblue;
 }
