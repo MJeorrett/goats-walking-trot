@@ -3,14 +3,18 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { selectors, actions } from './GwtStore';
+import Then from './Then';
 
 const When = ({
   when,
   updateText,
+  addThen
 }) => {
   return (
     <div>
       <input placeholder="When" value={when.text} onChange={updateText} />
+      <button onClick={addThen}>+ Then</button>
+      {when.thenIds.map(thenId => <Then key={thenId} thenId={thenId} />)}
     </div>
   )
 }
@@ -23,11 +27,12 @@ const mapStateToProps = (state, { whenId }) => {
   });
 }
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
+const mapDispatchToProps = (dispatch, { whenId }) => ({
   updateText: event => dispatch(actions.when.updateText({
-    id: ownProps.whenId,
+    id: whenId,
     text: event.target.value,
-  }))
+  })),
+  addThen: () => dispatch(actions.then.add(whenId))
 })
 
 When.propTypes = {

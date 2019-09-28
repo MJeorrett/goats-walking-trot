@@ -10,7 +10,7 @@ const Given = ({
   addWhen,
 }) => {
   return (
-    <div>
+    <div style={{border: '1px solid dodgerblue', marginBottom: '0.5em', padding: '0.5em'}}>
       <input placeholder="Given" value={given.text} onChange={updateText} />
       <button onClick={addWhen}>+ When</button>
       <div>

@@ -23,7 +23,7 @@ const givenSlice = createSlice({
     },
     addWhenIdToGiven: (state, action) => {
       const { givenId, whenId } = action.payload;
-      state.items[givenId].whenIds.unshift(whenId);
+      state.items[givenId].whenIds.push(whenId);
     }
   }
 });
@@ -42,6 +42,10 @@ const whenSlice = createSlice({
     updateWhenText: (state, action) => {
       const { id, text } = action.payload;
       state.items[id].text = text;
+    },
+    addThenIdToWhen: (state, action) => {
+      const { whenId, thenId } = action.payload;
+      state.items[whenId].thenIds.push(thenId);
     }
   }
 });
@@ -56,6 +60,10 @@ const thenSlice = createSlice({
       const { id, text } = action.payload;
       state.ids.unshift(id);
       state.items[id] = { id, text };
+    },
+    updateThenText: (state, action) => {
+      const { id, text } = action.payload;
+      state.items[id].text = text;
     }
   }
 })
@@ -114,6 +122,19 @@ export const actions = {
     },
     updateText: whenSlice.actions.updateWhenText,
   },
+  then: {
+    add: whenId => {
+      const then = {
+        id: generateId(),
+        text: '',
+      };
+      return dispatch => {
+        dispatch(whenSlice.actions.addThenIdToWhen({ whenId, thenId: then.id }));
+        dispatch(thenSlice.actions.addThen(then));
+      }
+    },
+    updateText: thenSlice.actions.updateThenText,
+  }
 }
 
 const givenStateSelector = state => state.given;
@@ -138,7 +159,14 @@ export const selectors = {
     makeSelectById: () => createSelector(
       whenStateSelector,
       selectItemId,
-      (whenState, id) => whenState.items[id],
+      (whenState, id) => whenState.items[id]
+    )
+  },
+  then: {
+    makeSelectById: () => createSelector(
+      thenStateSelector,
+      selectItemId,
+      (thenState, id) => thenState.items[id]
     )
   }
 }
