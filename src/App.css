@@ -1,0 +1,11 @@
+h1 {
+  color: dodgerblue;
+  font-size: 4em;
+  text-align: center;
+  margin: 0.5em;
+}
+
+p {
+  text-align: center;
+  color: darkgrey;
+}

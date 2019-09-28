@@ -1,0 +1,56 @@
+.gwt-container {
+  padding: 2em;
+}
+
+.gwt-container .field {
+  display: flex;
+}
+
+.gwt-container .when-then-container {
+  margin-left: 3em;
+}
+
+.gwt-container .when-field {
+  margin-bottom: 0.8em;
+}
+
+.gwt-container label {
+  color: dodgerblue;
+  padding: 0.2em;
+  margin-right: 1em;
+  font-size: 1.5em;
+}
+
+.gwt-container input {
+  padding: 0.2em;
+  padding-left: 0.4em;
+  padding-right: 0.4em;
+  font-size: 1.2em;
+  flex-grow: 1;
+  border: 1px solid black;
+  margin-right: 0.6em;
+}
+
+.gwt-container button {
+  color: dodgerblue;
+  cursor: pointer;
+  background-color: white;
+  font-size: 1.5em;
+  margin: 1px;
+  padding: 0.1em 0.2em;
+  border: none;
+  white-space: nowrap;
+}
+
+.gwt-container button:hover,
+.gwt-container button:active {
+  margin: 0;
+  border: 1px solid dodgerblue;
+}
+
+.add-when-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 0.4em;
+  margin-bottom: 0.4em;
+}

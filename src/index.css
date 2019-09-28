@@ -1,6 +1,7 @@
-body {
+body, button {
   margin: 0;
-  font-family: monospace;
+  font-family: monospace !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-size: 21px;
 }
