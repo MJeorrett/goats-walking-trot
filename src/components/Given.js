@@ -4,17 +4,21 @@ import { connect } from 'react-redux';
 import { selectors, actions } from './GwtStore';
 import When from './When';
 
+import './Given.css';
+
 const Given = ({
   given,
   updateText,
   addWhen,
 }) => {
   return (
-    <div style={{border: '1px solid dodgerblue', marginBottom: '0.5em', padding: '0.5em'}}>
-      <input placeholder="Given" value={given.text} onChange={updateText} />
-      <button onClick={addWhen}>+ When</button>
-      <div>
+    <div className="given-container">
+      <div className="flex-container">
+        <input className="given-input" placeholder="Given" value={given.text} onChange={updateText} />
+      </div>
+      <div className="whens-container">
         {given.whenIds.map(whenId => <When key={whenId} whenId={whenId} />)}
+        <button onClick={addWhen}>+ WHEN</button>
       </div>
     </div>
   )

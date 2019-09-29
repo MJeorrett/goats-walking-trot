@@ -9,7 +9,7 @@ const Then = ({
   updateText,
 }) => {
   return (
-    <div>
+    <div className="flex-container">
       <input placeholder="Then" value={then.text} onChange={updateText} />
     </div>
   )

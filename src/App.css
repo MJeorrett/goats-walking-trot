@@ -8,8 +8,38 @@ h1 {
 p {
   text-align: center;
   color: darkgrey;
+  margin-bottom: 2em;
+}
+
+button {
+  border: 1px solid rgba(0,0,0,0);
+  border-radius: 2px;
+  color: dodgerblue;
+  cursor: pointer;
+  background-color: white;
+  font-size: 1.2em;
+  padding: 0.1em 0.3em;
+  white-space: nowrap;
+  margin: 0.2em;
+}
+
+button:hover {
+  border: 1px solid dodgerblue;
+}
+
+input {
+  font-size: 1.2em;
+  border: 1px solid lightgrey;
+  border-radius: 2px;
+  padding: 0.2em 0.4em;
+  margin: 5px;
+  flex-grow: 1;
 }
 
 #app-container {
   padding: 2em 4em;
+}
+
+.flex-container {
+  display: flex;
 }

@@ -4,14 +4,22 @@ import { connect } from 'react-redux';
 import { selectors, actions } from './GwtStore';
 import Given from './Given';
 
+import './GwtsContainer.css';
+
 const GwtsContainer = ({
   addGiven,
   givenIds
 }) => {
   return (
-    <div>
-      <button onClick={addGiven}>Add Given</button>
-      {givenIds.map(givenId => <Given key={givenId} givenId={givenId} />)}
+    <div className="gwts-container">
+      <button className="add-gwt-button top-button" onClick={addGiven}>+ GWT </button>
+      <div className="givens-container">
+        {givenIds.map(givenId => <Given key={givenId} givenId={givenId} />)}
+      </div>
+      {
+        givenIds.length > 0 &&
+          <button className="add-gwt-button bottom-button" onClick={addGiven}>+ GWT </button>
+      }
     </div>
   )
 }

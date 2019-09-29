@@ -5,16 +5,22 @@ import { connect } from 'react-redux';
 import { selectors, actions } from './GwtStore';
 import Then from './Then';
 
+import './When.css';
+
 const When = ({
   when,
   updateText,
   addThen
 }) => {
   return (
-    <div>
-      <input placeholder="When" value={when.text} onChange={updateText} />
-      <button onClick={addThen}>+ Then</button>
-      {when.thenIds.map(thenId => <Then key={thenId} thenId={thenId} />)}
+    <div className="when-container">
+      <div className="flex-container">
+        <input placeholder="When" value={when.text} onChange={updateText} />
+      </div>
+      <div className="thens-container">
+        {when.thenIds.map(thenId => <Then key={thenId} thenId={thenId} />)}
+        <button onClick={addThen}>+ THEN</button>
+      </div>
     </div>
   )
 }
