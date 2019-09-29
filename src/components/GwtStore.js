@@ -141,9 +141,9 @@ export const actions = {
     const given = makeGiven({ whenIds: [when.id] });
 
     return (dispatch) => {
-      dispatch(givenSlice.actions.addGiven({ given, prepend }));
-      dispatch(whenSlice.actions.addWhen({ when, prepend: false }));
       dispatch(thenSlice.actions.addThen({ then, prepend: false }));
+      dispatch(whenSlice.actions.addWhen({ when, prepend: false }));
+      dispatch(givenSlice.actions.addGiven({ given, prepend }));
     }
   },
   given: {
@@ -169,9 +169,9 @@ export const actions = {
       const when = makeWhen({ thenIds: [then.id] });
 
       return dispatch => {
-        dispatch(givenSlice.actions.addWhenIdToGiven({ givenId, whenId: when.id }));
-        dispatch(whenSlice.actions.addWhen({ when, prepend: false }));
         dispatch(thenSlice.actions.addThen({ then, prepend: false }));
+        dispatch(whenSlice.actions.addWhen({ when, prepend: false }));
+        dispatch(givenSlice.actions.addWhenIdToGiven({ givenId, whenId: when.id }));
       }
     }
   },
@@ -188,8 +188,8 @@ export const actions = {
     add: whenId => {
       const then = makeThen();
       return dispatch => {
-        dispatch(whenSlice.actions.addThenIdToWhen({ whenId, thenId: then.id }));
         dispatch(thenSlice.actions.addThen({ then, prepend: false }));
+        dispatch(whenSlice.actions.addThenIdToWhen({ whenId, thenId: then.id }));
       }
     },
     updateText: thenSlice.actions.updateThenText,
