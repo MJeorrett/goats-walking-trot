@@ -9,7 +9,7 @@ import './Given.css';
 const Given = ({
   given,
   updateText,
-  addWhen,
+  addWhenThen,
 }) => {
   return (
     <div className="given-container">
@@ -18,7 +18,7 @@ const Given = ({
       </div>
       <div className="whens-container">
         {given.whenIds.map(whenId => <When key={whenId} whenId={whenId} />)}
-        <button onClick={addWhen}>+ WHEN</button>
+        <button onClick={addWhenThen}>+ WHEN/THEN</button>
       </div>
     </div>
   )
@@ -37,7 +37,7 @@ const mapDispatchToProps = (dispatch, { givenId }) => ({
     text: event.target.value,
     id: givenId,
   })),
-  addWhen: () => dispatch(actions.when.add(givenId)),
+  addWhenThen: () => dispatch(actions.given.addWhenThen(givenId)),
 });
 
 export default connect(

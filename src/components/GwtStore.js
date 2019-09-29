@@ -79,32 +79,30 @@ const store = configureStore({
 export default store;
 
 export const actions = {
-  given: {
-    add: () => {
-      const then = {
-        id: generateId(),
-        text: '',
-      };
-      const when = {
-        id: generateId(),
-        text: '',
-        thenIds: [then.id]
-      };
-      const given = {
-        id: generateId(),
-        text: '',
-        whenIds: [when.id]
-      };
-      return (dispatch) => {
-        dispatch(givenSlice.actions.addGiven(given));
-        dispatch(whenSlice.actions.addWhen(when));
-        dispatch(thenSlice.actions.addThen(then));
-      }
-    },
-    updateText: givenSlice.actions.updateGivenText,
+  addGwt: () => {
+    const then = {
+      id: generateId(),
+      text: '',
+    };
+    const when = {
+      id: generateId(),
+      text: '',
+      thenIds: [then.id]
+    };
+    const given = {
+      id: generateId(),
+      text: '',
+      whenIds: [when.id]
+    };
+    return (dispatch) => {
+      dispatch(givenSlice.actions.addGiven(given));
+      dispatch(whenSlice.actions.addWhen(when));
+      dispatch(thenSlice.actions.addThen(then));
+    }
   },
-  when: {
-    add: givenId => {
+  given: {
+    updateText: givenSlice.actions.updateGivenText,
+    addWhenThen: givenId => {
       const then = {
         id: generateId(),
         text: '',
@@ -119,7 +117,9 @@ export const actions = {
         dispatch(whenSlice.actions.addWhen(when));
         dispatch(thenSlice.actions.addThen(then));
       }
-    },
+    }
+  },
+  when: {
     updateText: whenSlice.actions.updateWhenText,
   },
   then: {
