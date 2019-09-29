@@ -17,7 +17,8 @@ const Given = ({
   return (
     <div className="given-container">
       <div className="flex-container">
-        <input className="given-input" placeholder="Given" value={given.text} onChange={updateText} />
+        <label className="given-label">GIVEN</label>
+        <input className="given-input" value={given.text} onChange={updateText} />
         <button onClick={addAnd}>+ AND</button>
       </div>
       <div className="whens-container">

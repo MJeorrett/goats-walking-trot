@@ -18,7 +18,8 @@ const When = ({
   return (
     <div className="when-container">
       <div className="flex-container">
-        <input placeholder="When" value={when.text} onChange={updateText} />
+        <label>WHEN</label>
+        <input value={when.text} onChange={updateText} />
         <button onClick={addAnd}>+ AND</button>
       </div>
       <div className="thens-container">

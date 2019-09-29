@@ -7,9 +7,7 @@ const And = ({
 }) => {
   return (
     <div key={and.id} className="flex-container">
-      <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
         <label>AND</label>
-      </div>
       <input value={and.text} onChange={event => updateAndText(and.id, event.target.value)}/>
     </div>
   );

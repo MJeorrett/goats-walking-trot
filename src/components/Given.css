@@ -4,7 +4,8 @@
   padding: 1em;
 }
 
-.given-container .given-input {
+.given-container .given-input,
+.given-container .given-label {
   font-size: 2em;
 }
 

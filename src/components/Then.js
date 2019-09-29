@@ -16,7 +16,8 @@ const Then = ({
   return (
     <div className="then-container">
       <div className="flex-container">
-        <input placeholder="Then" value={then.text} onChange={updateText} />
+        <label>THEN</label>
+        <input value={then.text} onChange={updateText} />
         <button onClick={addAnd}>+ AND</button>
       </div>
       <div className="ands-container">

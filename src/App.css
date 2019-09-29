@@ -35,17 +35,24 @@ button:active {
   background-color: #f0f8f8;
 }
 
+label, input {
+  font-size: 1.2em;
+  padding: 0.35em 0.4em 0.05em 0.4em;
+  margin: 5px;
+}
 label {
   color: darkgrey;
 }
 
 input {
-  font-size: 1.2em;
-  border: 1px solid lightgrey;
+  border: 1px solid rgba(0,0,0,0);
   border-radius: 2px;
-  padding: 0.2em 0.4em;
-  margin: 5px;
   flex-grow: 1;
+  padding: 0.2em 0.4em;
+}
+input:active,
+input:focus {
+  border: 1px solid lightgrey;
 }
 
 #app-container {
