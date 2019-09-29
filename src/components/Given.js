@@ -32,7 +32,7 @@ const Given = ({
 
 function renderAnds(ands, updateAndText) {
   return ands.map(and => (
-    <div>
+    <div key={and.id}>
       <label>AND</label>
       <input value={and.text} onChange={event => updateAndText(and.id, event.target.value)}/>
     </div>

@@ -23,8 +23,16 @@ button {
   margin: 0.2em;
 }
 
+button:focus {
+  border: 1px solid lightblue;
+}
+
 button:hover {
   border: 1px solid dodgerblue;
+}
+
+button:active {
+  background-color: #f0f8f8;
 }
 
 label {
