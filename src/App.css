@@ -27,6 +27,10 @@ button:hover {
   border: 1px solid dodgerblue;
 }
 
+label {
+  color: darkgrey;
+}
+
 input {
   font-size: 1.2em;
   border: 1px solid lightgrey;
