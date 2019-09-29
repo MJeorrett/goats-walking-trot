@@ -2,6 +2,7 @@
   border: 1px solid dodgerblue;
   border-radius: 3px;
   padding: 1em;
+  padding-right: 2.5em;
 }
 
 .given-container .given-input,

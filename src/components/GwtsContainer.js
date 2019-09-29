@@ -12,13 +12,13 @@ const GwtsContainer = ({
 }) => {
   return (
     <div className="gwts-container">
-      <button className="add-gwt-button top-button" onClick={addGwt}>+ GWT </button>
+      <button className="add-gwt-button top-button" onClick={() => addGwt(true)}>+ GWT </button>
       <div className="givens-container">
         {givenIds.map(givenId => <Given key={givenId} givenId={givenId} />)}
       </div>
       {
         givenIds.length > 0 &&
-          <button className="add-gwt-button bottom-button" onClick={addGwt}>+ GWT </button>
+          <button className="add-gwt-button bottom-button" onClick={() => addGwt(false)}>+ GWT </button>
       }
     </div>
   )

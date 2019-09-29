@@ -14,8 +14,15 @@ const givenSlice = createSlice({
   },
   reducers: {
     addGiven: (state, action) => {
-      const { id, text, whenIds } = action.payload;
-      state.ids.unshift(id);
+      const {
+        given: { id, text, whenIds },
+        prepend
+      } = action.payload;
+      if (prepend) {
+        state.ids.unshift(id);
+      } else {
+        state.ids.push(id);
+      }
       state.items[id] = { id, text, whenIds, andIds: [] };
     },
     updateGivenText: (state, action) => {
@@ -124,7 +131,7 @@ const store = configureStore({
 export default store;
 
 export const actions = {
-  addGwt: () => {
+  addGwt: (prepend) => {
     const then = {
       id: generateId(),
       text: '',
@@ -140,7 +147,7 @@ export const actions = {
       whenIds: [when.id]
     };
     return (dispatch) => {
-      dispatch(givenSlice.actions.addGiven(given));
+      dispatch(givenSlice.actions.addGiven({ given, prepend }));
       dispatch(whenSlice.actions.addWhen(when));
       dispatch(thenSlice.actions.addThen(then));
     }
