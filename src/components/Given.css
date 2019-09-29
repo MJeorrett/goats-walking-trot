@@ -6,7 +6,8 @@
 }
 
 .given-container .given-input,
-.given-container .given-label {
+.given-container .given-label,
+.delete-given {
   font-size: 2em;
 }
 

@@ -14,10 +14,12 @@ const Given = ({
   deleteAnd,
   updateAndText,
   addWhenThen,
+  deleteGiven,
 }) => {
   return (
     <div className="given-container">
       <div className="flex-container">
+        <button className="delete-button delete-given" onClick={deleteGiven}>X</button>
         <label className="given-label">GIVEN</label>
         <input className="given-input" value={given.text} onChange={updateText} />
         <button onClick={addAnd}>+ AND</button>
@@ -25,7 +27,7 @@ const Given = ({
       <div className="whens-container">
         <div>
           {given.ands.map(and => (
-            <And and={and} updateText={updateAndText} deleteAnd={deleteAnd} />
+            <And key={and.id} and={and} updateText={updateAndText} deleteAnd={deleteAnd} />
           ))}
         </div>
         {given.whenIds.map(whenId => <When key={whenId} whenId={whenId} />)}
@@ -57,6 +59,7 @@ const mapDispatchToProps = (dispatch, { givenId }) => ({
     text,
   })),
   addWhenThen: () => dispatch(actions.given.addWhenThen(givenId)),
+  deleteGiven: () => dispatch(actions.given.delete(givenId)),
 });
 
 export default connect(

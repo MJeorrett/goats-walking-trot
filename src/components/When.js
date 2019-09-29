@@ -26,7 +26,7 @@ const When = ({
       <div className="thens-container">
         <div>
           {when.ands.map(and => (
-            <And and={and} updateText={updateAndText} deleteAnd={deleteAnd} />
+            <And key={and.id} and={and} updateText={updateAndText} deleteAnd={deleteAnd} />
           ))}
         </div>
         {when.thenIds.map(thenId => <Then key={thenId} thenId={thenId} />)}

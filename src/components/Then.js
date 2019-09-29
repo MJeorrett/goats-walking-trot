@@ -23,7 +23,7 @@ const Then = ({
       </div>
       <div className="ands-container">
         {then.ands.map(and => (
-          <And and={and} updateText={updateAndText} deleteAnd={deleteAnd} />
+          <And key={and.id} and={and} updateText={updateAndText} deleteAnd={deleteAnd} />
         ))}
       </div>
     </div>

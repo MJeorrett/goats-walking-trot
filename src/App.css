@@ -24,7 +24,7 @@ button {
 }
 
 button.delete-button {
-  color: tomato;
+  color: darkgrey;
 }
 
 button:focus {
@@ -40,6 +40,7 @@ button:hover {
 }
 
 button.delete-button:hover {
+  color: tomato;
   border-color: tomato;
 }
 
