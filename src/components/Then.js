@@ -11,6 +11,7 @@ const Then = ({
   then,
   updateText,
   addAnd,
+  deleteAnd,
   updateAndText,
 }) => {
   return (
@@ -22,7 +23,7 @@ const Then = ({
       </div>
       <div className="ands-container">
         {then.ands.map(and => (
-          <And and={and} updateAndText={updateAndText} />
+          <And and={and} updateText={updateAndText} deleteAnd={deleteAnd} />
         ))}
       </div>
     </div>
@@ -43,6 +44,9 @@ const mapDispatchToProps = (dispatch, { thenId }) => ({
     text: event.target.value,
   })),
   addAnd: () => dispatch(actions.then.addAnd(thenId)),
+  deleteAnd: andId => dispatch(actions.then.deleteAnd({
+    andId, thenId,
+  })),
   updateAndText: (andId, text) => dispatch(actions.then.updateAndText({
     andId,
     text,

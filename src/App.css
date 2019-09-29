@@ -23,16 +23,32 @@ button {
   margin: 0.2em;
 }
 
+button.delete-button {
+  color: tomato;
+}
+
 button:focus {
   border: 1px solid lightblue;
+}
+
+button.delete-button:focus {
+  border-color: lightpink;
 }
 
 button:hover {
   border: 1px solid dodgerblue;
 }
 
+button.delete-button:hover {
+  border-color: tomato;
+}
+
 button:active {
   background-color: #f0f8f8;
+}
+
+button.delete-button:active {
+  background-color: #f8f0f0;
 }
 
 label, input {
@@ -40,11 +56,13 @@ label, input {
   padding: 0.35em 0.4em 0.05em 0.4em;
   margin: 5px;
 }
+
 label {
   color: darkgrey;
 }
 
 input {
+  color: #444;
   border: 1px solid rgba(0,0,0,0);
   border-radius: 2px;
   flex-grow: 1;

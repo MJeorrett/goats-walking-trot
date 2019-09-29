@@ -11,6 +11,7 @@ const Given = ({
   given,
   updateText,
   addAnd,
+  deleteAnd,
   updateAndText,
   addWhenThen,
 }) => {
@@ -24,7 +25,7 @@ const Given = ({
       <div className="whens-container">
         <div>
           {given.ands.map(and => (
-            <And and={and} updateAndText={updateAndText} />
+            <And and={and} updateText={updateAndText} deleteAnd={deleteAnd} />
           ))}
         </div>
         {given.whenIds.map(whenId => <When key={whenId} whenId={whenId} />)}
@@ -48,6 +49,9 @@ const mapDispatchToProps = (dispatch, { givenId }) => ({
     id: givenId,
   })),
   addAnd: () => dispatch(actions.given.addAnd(givenId)),
+  deleteAnd: andId => dispatch(actions.given.deleteAnd({
+    andId, givenId,
+  })),
   updateAndText: (andId, text) => dispatch(actions.given.updateAndText({
     andId,
     text,

@@ -31,6 +31,11 @@ const givenSlice = createSlice({
       state.items[givenId].andIds.push(and.id);
       state.andItems[and.id] = and;
     },
+    deleteAndFromGiven: (state, action) => {
+      const { givenId, andId } = action.payload;
+      state.items[givenId].andIds = state.items[givenId].andIds.filter(id => id !== andId);
+      delete state.andItems[andId];
+    },
     updateGivenAndText: (state, action) => {
       const { andId, text } = action.payload;
       state.andItems[andId].text = text;
@@ -63,6 +68,11 @@ const whenSlice = createSlice({
       state.items[whenId].andIds.push(and.id);
       state.andItems[and.id] = and;
     },
+    deleteAndFromWhen: (state, action) => {
+      const { whenId, andId } = action.payload;
+      state.items[whenId].andIds = state.items[whenId].andIds.filter(id => id !== andId);
+      delete state.andItems[andId];
+    },
     updateWhenAndText: (state, action) => {
       const { andId, text } = action.payload;
       state.andItems[andId].text = text;
@@ -90,6 +100,11 @@ const thenSlice = createSlice({
       const { thenId, and } = action.payload;
       state.items[thenId].andIds.push(and.id);
       state.andItems[and.id] = and;
+    },
+    deleteAndFromThen: (state, action) => {
+      const { thenId, andId } = action.payload;
+      state.items[thenId].andIds = state.items[thenId].andIds.filter(id => id !== andId);
+      delete state.andItems[andId];
     },
     updateThenAndText: (state, action) => {
       const { andId, text } = action.payload;
@@ -139,6 +154,7 @@ export const actions = {
         text: '',
       },
     }),
+    deleteAnd: givenSlice.actions.deleteAndFromGiven,
     updateAndText: givenSlice.actions.updateGivenAndText,
     addWhenThen: givenId => {
       const then = {
@@ -166,6 +182,7 @@ export const actions = {
         text: '',
       },
     }),
+    deleteAnd: whenSlice.actions.deleteAndFromWhen,
     updateAndText: whenSlice.actions.updateWhenAndText,
   },
   then: {
@@ -187,6 +204,7 @@ export const actions = {
         text: '',
       },
     }),
+    deleteAnd: thenSlice.actions.deleteAndFromThen,
     updateAndText: thenSlice.actions.updateThenAndText,
   }
 }
