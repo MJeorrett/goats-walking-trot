@@ -132,7 +132,7 @@ const makeThen = () => ({
 const makeAnd = () => ({
   id: generateId(),
   text: '',
-})
+});
 
 export const actions = {
   addGwt: (prepend) => {
@@ -206,8 +206,6 @@ const selectGivenState = state => state.given;
 const selectWhenState = state => state.when;
 const selectThenState = state => state.then;
 
-const selectItemId = (state, id) => id;
-
 const selectGivenById = (state, id) => state.items[id];
 const selectWhenById = (state, id) => state.items[id];
 const selectWhensByIds = (state, ids) => ids.map(id => selectWhenById(state, id));
@@ -230,21 +228,21 @@ export const selectors = {
     ),
     makeSelectById: () => createSelector(
       selectGivenState,
-      selectItemId,
+      (_, id) => id,
       selectItemById,
     ),
   },
   when: {
     makeSelectById: () => createSelector(
       selectWhenState,
-      selectItemId,
+      (_, id) => id,
       selectItemById,
     )
   },
   then: {
     makeSelectById: () => createSelector(
       selectThenState,
-      selectItemId,
+      (_, id) =>id,
       selectItemById,
     )
   }
