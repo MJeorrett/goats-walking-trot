@@ -8,7 +8,7 @@ const And = ({
 }) => {
   return (
     <div className="flex-container">
-      <button className="delete-button" onClick={() => deleteAnd(and.id)}>X</button>
+      <button tabIndex="-1" className="delete-button" onClick={() => deleteAnd(and.id)}>X</button>
       <label>AND</label>
       <input value={and.text} onChange={event => updateText(and.id, event.target.value)}/>
     </div>

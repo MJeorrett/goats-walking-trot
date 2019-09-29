@@ -6,139 +6,96 @@ const generateId = () => {
   return genUuid();
 };
 
-const givenSlice = createSlice({
-  initialState: {
+function createInitialState() {
+  return {
     ids: [],
     items: {},
     andItems: {},
-  },
+  };
+}
+
+function addItem(state, item, prepend) {
+  if (prepend === true) {
+    state.ids.unshift(item.id);
+  } else {
+    state.ids.push(item.id);
+  }
+  state.items[item.id] = item;
+}
+
+function deleteItem(state, idToDelete) {
+  const item = state.items[idToDelete];
+  item.andIds.forEach(andId => delete state.andItems[andId]);
+  state.ids = state.ids.filter(id => id !== idToDelete);
+  delete state.items[idToDelete];
+}
+
+function deleteItems(state, idsToDelete) {
+  idsToDelete.forEach(id => deleteItem(state, id));
+}
+
+function updateItemText(state, action) {
+  const { id, text } = action.payload;
+  state.items[id].text = text;
+}
+
+function addAndToItem(state, itemId, and) {
+  state.items[itemId].andIds.push(and.id);
+  state.andItems[and.id] = and;
+}
+
+function deleteAndFromItem(state, itemId, andId) {
+  const item = state.items[itemId];
+  item.andIds = item.andIds.filter(id => id !== andId);
+  delete state.andItems[andId];
+}
+
+function updateAndText(state, action) {
+  const { andId, text } = action.payload;
+  state.andItems[andId].text = text;
+}
+
+const givenSlice = createSlice({
+  initialState: createInitialState(),
   reducers: {
-    addGiven: (state, action) => {
-      const {
-        given: { id, text, whenIds },
-        prepend
-      } = action.payload;
-      if (prepend) {
-        state.ids.unshift(id);
-      } else {
-        state.ids.push(id);
-      }
-      state.items[id] = { id, text, whenIds, andIds: [] };
-    },
-    deleteGiven: (state, action) => {
-      const idToDelete = action.payload;
-      state.ids = state.ids.filter(id => id !== idToDelete);
-      delete state.items[idToDelete];
-    },
-    updateGivenText: (state, action) => {
-      const { id, text } = action.payload;
-      state.items[id].text = text;
-    },
+    addGiven: (state, { payload: { given, prepend } }) => addItem(state, given, prepend),
+    deleteGiven: (state, action) => deleteItem(state, action.payload),
+    updateGivenText: updateItemText,
     addWhenIdToGiven: (state, action) => {
       const { givenId, whenId } = action.payload;
       state.items[givenId].whenIds.push(whenId);
     },
-    addAndToGiven: (state, action) => {
-      const { givenId, and } = action.payload;
-      state.items[givenId].andIds.push(and.id);
-      state.andItems[and.id] = and;
-    },
-    deleteAndFromGiven: (state, action) => {
-      const { givenId, andId } = action.payload;
-      const given = state.items[givenId];
-      given.andIds = given.andIds.filter(id => id !== andId);
-      delete state.andItems[andId];
-    },
-    updateGivenAndText: (state, action) => {
-      const { andId, text } = action.payload;
-      state.andItems[andId].text = text;
-    }
+    addAndToGiven: (state, { payload:  { givenId, and } }) => addAndToItem(state, givenId, and),
+    deleteAndFromGiven: (state, { payload: { givenId, andId } }) => deleteAndFromItem(state, givenId, andId),
+    updateGivenAndText: updateAndText,
   }
 });
 
 const whenSlice = createSlice({
-  initialState: {
-    ids: [],
-    items: {},
-    andItems: {},
-  },
+  initialState: createInitialState(),
   reducers: {
-    addWhen: (state, action) => {
-      const { id, text, thenIds } = action.payload;
-      state.ids.push(id);
-      state.items[id] = { id, text, andIds: [], thenIds };
-    },
-    deleteWhens: (state, action) => {
-      const idsToDelete = action.payload;
-      idsToDelete.forEach(id => {
-        delete state.items[id];
-      });
-      state.ids = state.ids.filter(id => !idsToDelete.includes(id))
-    },
-    updateWhenText: (state, action) => {
-      const { id, text } = action.payload;
-      state.items[id].text = text;
-    },
+    addWhen: (state, { payload: { when, prepend } }) => addItem(state, when, prepend),
+    deleteWhens: (state, action) => deleteItems(state, action.payload),
+    updateWhenText: updateItemText,
     addThenIdToWhen: (state, action) => {
       const { whenId, thenId } = action.payload;
       state.items[whenId].thenIds.push(thenId);
     },
-    addAndToWhen: (state, action) => {
-      const { whenId, and } = action.payload;
-      state.items[whenId].andIds.push(and.id);
-      state.andItems[and.id] = and;
-    },
-    deleteAndFromWhen: (state, action) => {
-      const { whenId, andId } = action.payload;
-      const when = state.items[whenId];
-      when.andIds = when.andIds.filter(id => id !== andId);
-      delete state.andItems[andId];
-    },
-    updateWhenAndText: (state, action) => {
-      const { andId, text } = action.payload;
-      state.andItems[andId].text = text;
-    },
+    addAndToWhen: (state, { payload: { whenId, and } }) => addAndToItem(state, whenId, and),
+    deleteAndFromWhen: (state, { payload: { whenId, andId } }) => deleteAndFromItem(state, whenId, andId),
+    updateWhenAndText: updateAndText,
   }
 });
 
 const thenSlice = createSlice({
-  initialState: {
-    ids: [],
-    items: {},
-    andItems: {},
-  },
+  initialState: createInitialState(),
   reducers: {
-    addThen: (state, action) => {
-      const { id, text } = action.payload;
-      state.ids.unshift(id);
-      state.items[id] = { id, text, andIds: [] };
-    },
-    deleteThens: (state, action) => {
-      const idsToDelete = action.payload;
-      idsToDelete.forEach(id => {
-        delete state.items[id];
-        state.ids = state.ids.filter(id => !idsToDelete.includes(id));
-      });
-    },
-    updateThenText: (state, action) => {
-      const { id, text } = action.payload;
-      state.items[id].text = text;
-    },
-    addAndToThen: (state, action) => {
-      const { thenId, and } = action.payload;
-      state.items[thenId].andIds.push(and.id);
-      state.andItems[and.id] = and;
-    },
-    deleteAndFromThen: (state, action) => {
-      const { thenId, andId } = action.payload;
-      const then = state.items[thenId];
-      then.andIds = then.andIds.filter(id => id !== andId);
-      delete state.andItems[andId];
-    },
-    updateThenAndText: (state, action) => {
-      const { andId, text } = action.payload;
-      state.andItems[andId].text = text;
-    },
+    addThen: (state, { payload: { then, prepend } }) => addItem(state, then, prepend),
+    deleteThens: (state, action) => deleteItems(state, action.payload),
+    updateThenText: updateItemText,
+    addAndToThen: (state, { payload: { thenId, and } }) => addAndToItem(state, thenId, and),
+    deleteAndFromThen: (state, { payload: { thenId, andId } }) => deleteAndFromItem(state, thenId, andId),
+    updateThenAndText: updateAndText,
   }
 })
 
@@ -152,26 +109,41 @@ const store = configureStore({
 
 export default store;
 
+const makeGiven = ({ whenIds }) => ({
+  id: generateId(),
+  text: '',
+  whenIds,
+  andIds: [],
+});
+
+const makeWhen = ({ thenIds }) => ({
+  id: generateId(),
+  text: '',
+  thenIds,
+  andIds: [],
+});
+
+const makeThen = () => ({
+  id: generateId(),
+  text: '',
+  andIds: [],
+});
+
+const makeAnd = () => ({
+  id: generateId(),
+  text: '',
+})
+
 export const actions = {
   addGwt: (prepend) => {
-    const then = {
-      id: generateId(),
-      text: '',
-    };
-    const when = {
-      id: generateId(),
-      text: '',
-      thenIds: [then.id]
-    };
-    const given = {
-      id: generateId(),
-      text: '',
-      whenIds: [when.id]
-    };
+    const then = makeThen();
+    const when = makeWhen({ thenIds: [then.id] });
+    const given = makeGiven({ whenIds: [when.id] });
+
     return (dispatch) => {
       dispatch(givenSlice.actions.addGiven({ given, prepend }));
-      dispatch(whenSlice.actions.addWhen(when));
-      dispatch(thenSlice.actions.addThen(then));
+      dispatch(whenSlice.actions.addWhen({ when, prepend: false }));
+      dispatch(thenSlice.actions.addThen({ then, prepend: false }));
     }
   },
   given: {
@@ -188,27 +160,18 @@ export const actions = {
     updateText: givenSlice.actions.updateGivenText,
     addAnd: givenId => givenSlice.actions.addAndToGiven({
       givenId,
-      and: {
-        id: generateId(),
-        text: '',
-      },
+      and: makeAnd(),
     }),
     deleteAnd: givenSlice.actions.deleteAndFromGiven,
     updateAndText: givenSlice.actions.updateGivenAndText,
     addWhenThen: givenId => {
-      const then = {
-        id: generateId(),
-        text: '',
-      };
-      const when = {
-        id: generateId(),
-        text: '',
-        thenIds: [then.id]
-      };
+      const then = makeThen();
+      const when = makeWhen({ thenIds: [then.id] });
+
       return dispatch => {
         dispatch(givenSlice.actions.addWhenIdToGiven({ givenId, whenId: when.id }));
-        dispatch(whenSlice.actions.addWhen(when));
-        dispatch(thenSlice.actions.addThen(then));
+        dispatch(whenSlice.actions.addWhen({ when, prepend: false }));
+        dispatch(thenSlice.actions.addThen({ then, prepend: false }));
       }
     }
   },
@@ -216,32 +179,23 @@ export const actions = {
     updateText: whenSlice.actions.updateWhenText,
     addAnd: whenId => whenSlice.actions.addAndToWhen({
       whenId,
-      and: {
-        id: generateId(),
-        text: '',
-      },
+      and: makeAnd(),
     }),
     deleteAnd: whenSlice.actions.deleteAndFromWhen,
     updateAndText: whenSlice.actions.updateWhenAndText,
   },
   then: {
     add: whenId => {
-      const then = {
-        id: generateId(),
-        text: '',
-      };
+      const then = makeThen();
       return dispatch => {
         dispatch(whenSlice.actions.addThenIdToWhen({ whenId, thenId: then.id }));
-        dispatch(thenSlice.actions.addThen(then));
+        dispatch(thenSlice.actions.addThen({ then, prepend: false }));
       }
     },
     updateText: thenSlice.actions.updateThenText,
     addAnd: thenId => thenSlice.actions.addAndToThen({
       thenId,
-      and: {
-        id: generateId(),
-        text: '',
-      },
+      and: makeAnd(),
     }),
     deleteAnd: thenSlice.actions.deleteAndFromThen,
     updateAndText: thenSlice.actions.updateThenAndText,
@@ -257,7 +211,16 @@ const selectItemId = (state, id) => id;
 const selectGivenById = (state, id) => state.items[id];
 const selectWhenById = (state, id) => state.items[id];
 const selectWhensByIds = (state, ids) => ids.map(id => selectWhenById(state, id));
-const selectThenById = (state, id) => thenSlice.items[id];
+
+const selectItemById = (state, id) => {
+  const item = state.items[id];
+  return {
+    ...item,
+    ands: selectItemAnds(state, item),
+  }
+};
+
+const selectItemAnds = (state, item) => item.andIds.map(andId => state.andItems[andId]);
 
 export const selectors = {
   given: {
@@ -268,39 +231,21 @@ export const selectors = {
     makeSelectById: () => createSelector(
       selectGivenState,
       selectItemId,
-      (givenState, id) => {
-        const given = givenState.items[id];
-        return {
-          ...given,
-          ands: given.andIds.map(andId => givenState.andItems[andId]),
-        }
-      }
+      selectItemById,
     ),
   },
   when: {
     makeSelectById: () => createSelector(
       selectWhenState,
       selectItemId,
-      (whenState, id) => {
-        const when = whenState.items[id];
-        return {
-          ...when,
-          ands: when.andIds.map(andId => whenState.andItems[andId]),
-        }
-      }
+      selectItemById,
     )
   },
   then: {
     makeSelectById: () => createSelector(
       selectThenState,
       selectItemId,
-      (thenState, id) => {
-        const then = thenState.items[id];
-        return {
-          ...then,
-          ands: then.andIds.map(andId => thenState.andItems[andId]),
-        }
-      }
+      selectItemById,
     )
   }
-}
+};
