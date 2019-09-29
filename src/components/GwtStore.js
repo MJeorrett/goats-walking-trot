@@ -74,17 +74,27 @@ const thenSlice = createSlice({
   initialState: {
     ids: [],
     items: {},
+    andItems: {},
   },
   reducers: {
     addThen: (state, action) => {
       const { id, text } = action.payload;
       state.ids.unshift(id);
-      state.items[id] = { id, text };
+      state.items[id] = { id, text, andIds: [] };
     },
     updateThenText: (state, action) => {
       const { id, text } = action.payload;
       state.items[id].text = text;
-    }
+    },
+    addAndToThen: (state, action) => {
+      const { thenId, and } = action.payload;
+      state.items[thenId].andIds.push(and.id);
+      state.andItems[and.id] = and;
+    },
+    updateThenAndText: (state, action) => {
+      const { andId, text } = action.payload;
+      state.andItems[andId].text = text;
+    },
   }
 })
 
@@ -170,6 +180,14 @@ export const actions = {
       }
     },
     updateText: thenSlice.actions.updateThenText,
+    addAnd: thenId => thenSlice.actions.addAndToThen({
+      thenId,
+      and: {
+        id: generateId(),
+        text: '',
+      },
+    }),
+    updateAndText: thenSlice.actions.updateThenAndText,
   }
 }
 
@@ -214,7 +232,13 @@ export const selectors = {
     makeSelectById: () => createSelector(
       thenStateSelector,
       selectItemId,
-      (thenState, id) => thenState.items[id]
+      (thenState, id) => {
+        const then = thenState.items[id];
+        return {
+          ...then,
+          ands: then.andIds.map(andId => thenState.andItems[andId]),
+        }
+      }
     )
   }
 }

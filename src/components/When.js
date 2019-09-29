@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 import { selectors, actions } from './GwtStore';
 import Then from './Then';
+import And from './And';
 
 import './When.css';
 
@@ -22,22 +23,15 @@ const When = ({
       </div>
       <div className="thens-container">
         <div>
-          {renderAnds(when.ands, updateAndText)}
+          {when.ands.map(and => (
+            <And and={and} updateAndText={updateAndText} />
+          ))}
         </div>
         {when.thenIds.map(thenId => <Then key={thenId} thenId={thenId} />)}
         <button onClick={addThen}>+ THEN</button>
       </div>
     </div>
   )
-}
-
-function renderAnds(ands, updateAndText) {
-  return ands.map(and => (
-    <div key={and.id}>
-      <label>AND</label>
-      <input value={and.text} onChange={event => updateAndText(and.id, event.target.value)}/>
-    </div>
-  ));
 }
 
 const mapStateToProps = (state, { whenId }) => {

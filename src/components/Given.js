@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import { selectors, actions } from './GwtStore';
 import When from './When';
+import And from './And';
 
 import './Given.css';
 
@@ -21,7 +22,9 @@ const Given = ({
       </div>
       <div className="whens-container">
         <div>
-          {renderAnds(given.ands, updateAndText)}
+          {given.ands.map(and => (
+            <And and={and} updateAndText={updateAndText} />
+          ))}
         </div>
         {given.whenIds.map(whenId => <When key={whenId} whenId={whenId} />)}
         <button onClick={addWhenThen}>+ WHEN/THEN</button>
@@ -29,15 +32,6 @@ const Given = ({
     </div>
   )
 };
-
-function renderAnds(ands, updateAndText) {
-  return ands.map(and => (
-    <div key={and.id}>
-      <label>AND</label>
-      <input value={and.text} onChange={event => updateAndText(and.id, event.target.value)}/>
-    </div>
-  ));
-}
 
 const mapStateToProps = (state, { givenId }) => {
   const selectGivenById = selectors.given.makeSelectById();
