@@ -12,15 +12,22 @@ const GwtsContainer = ({
 }) => {
   return (
     <div className="gwts-container">
-      <button className="add-gwt-button top-button" onClick={() => addGiven(true)}>+ GIVEN </button>
+
+      {renderAddGivenButton(() => addGiven(true))}
+
       <div className="givens-container">
         {givenIds.map(givenId => <Given key={givenId} givenId={givenId} />)}
       </div>
-      {
-        givenIds.length > 0 &&
-          <button className="add-gwt-button bottom-button" onClick={() => addGiven(false)}>+ GIVEN </button>
-      }
+
+      {givenIds.length > 0 && renderAddGivenButton(() => addGiven(false))}
+      
     </div>
+  )
+}
+
+function renderAddGivenButton(clickHandler) {
+  return (
+    <button className="add-gwt-button top-button" onClick={clickHandler}>+ GIVEN </button>
   )
 }
 
