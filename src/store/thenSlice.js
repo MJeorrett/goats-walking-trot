@@ -10,12 +10,42 @@ import {
 const thenSlice = createSlice({
   initialState: createInitialState(),
   reducers: {
-    addThen: (state, { payload: { then, prepend } }) => addItem(state, then, prepend),
-    deleteManyThens: (state, action) => deleteItems(state, action.payload),
-    updateThenText: updateItemText,
-    addAndToThen: (state, { payload: { thenId, and } }) => addAndToItem(state, thenId, and),
-    deleteAndFromThen: (state, { payload: { thenId, andId } }) => deleteAndFromItem(state, thenId, andId),
-    updateThenAndText: updateAndText,
+    addThen: (
+      state,
+      { payload: { then, prepend } }
+    ) => {
+      addItem(state, then, prepend);
+    },
+    deleteManyThens: (
+      state,
+      { payload },
+    ) => {
+      deleteItems(state, payload);
+    },
+    updateThenText: (
+      state,
+      { payload: { id, text } },
+    ) => {
+      updateItemText(state, id, text);
+    },
+    addAndToThen: (
+      state,
+      { payload: { thenId, and } },
+    ) => {
+      addAndToItem(state, thenId, and)
+    },
+    deleteAndFromThen: (
+      state,
+      { payload: { thenId, andId } },
+    ) => {
+      deleteAndFromItem(state, thenId, andId);
+    },
+    updateThenAndText: (
+      state,
+      { payload: { andId, text } },
+    ) => {
+      updateAndText(state, andId, text);
+    },
   }
 });
 

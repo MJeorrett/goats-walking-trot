@@ -12,25 +12,49 @@ import * as whenSlice from './whenSlice';
 const givenSlice = createSlice({
   initialState: createInitialState(),
   reducers: {
-    addGiven: (state, { payload: { given, prepend } }) => {
+    addGiven: (
+      state,
+      { payload: { given, prepend } },
+    ) => {
       addItem(state, given, prepend)
     },
-    deleteGiven: (state, action) => {
-      deleteItem(state, action.payload);
+    deleteGiven: (
+      state,
+      { payload },
+    ) => {
+      deleteItem(state, payload);
     },
-    updateGivenText: updateItemText,
-    addWhenIdToGiven: (state, action) => {
-      const { givenId, whenId } = action.payload;
+    updateGivenText: (
+      state,
+      { payload: { id, text } },
+    ) => {
+      updateItemText(state, id, text);
+    },
+    addWhenIdToGiven: (
+      state,
+      { payload },
+    ) => {
+      const { givenId, whenId } = payload;
       state.items[givenId].whenIds.push(whenId);
     },
-    addAndToGiven: (state, { payload:  { givenId, and } }) => {
+    addAndToGiven: (
+      state,
+      { payload:  { givenId, and } },
+    ) => {
       addAndToItem(state, givenId, and);
     },
-    deleteAndFromGiven: (state, { payload: { givenId, andId } }) => 
-    {
+    deleteAndFromGiven: (
+      state,
+      { payload: { givenId, andId } }
+    ) => {
       deleteAndFromItem(state, givenId, andId);
     },
-    updateGivenAndText: updateAndText,
+    updateGivenAndText: (
+      state,
+      { payload: { andId, text } },
+    ) => {
+      updateAndText(state, andId, text);
+    },
   }
 });
 

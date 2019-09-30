@@ -26,9 +26,8 @@ export function deleteItems(state, idsToDelete) {
   idsToDelete.forEach(id => deleteItem(state, id));
 }
 
-export function updateItemText(state, action) {
-  const { id, text } = action.payload;
-  state.items[id].text = text;
+export function updateItemText(state, itemId, text) {
+  state.items[itemId].text = text;
 }
 
 export function addAndToItem(state, itemId, and) {
@@ -42,8 +41,7 @@ export function deleteAndFromItem(state, itemId, andId) {
   delete state.andItems[andId];
 }
 
-export function updateAndText(state, action) {
-  const { andId, text } = action.payload;
+export function updateAndText(state, andId, text) {
   state.andItems[andId].text = text;
 }
 

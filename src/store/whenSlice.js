@@ -12,16 +12,45 @@ import * as thenSlice from './thenSlice';
 const whenSlice = createSlice({
   initialState: createInitialState(),
   reducers: {
-    addWhen: (state, { payload: { when, prepend } }) => addItem(state, when, prepend),
-    deleteManyWhens: (state, action) => deleteItems(state, action.payload),
-    updateWhenText: updateItemText,
-    addThenIdToWhen: (state, action) => {
-      const { whenId, thenId } = action.payload;
+    addWhen: (
+      state,
+      { payload: { when, prepend } },
+    ) => {
+      addItem(state, when, prepend);
+    },
+    deleteManyWhens: (state, { payload }) => {
+      deleteItems(state, payload);
+    },
+    updateWhenText: (
+      state,
+      { payload: { id, text } },
+    ) => {
+      updateItemText(state, id, text);
+    },
+    addThenIdToWhen: (
+      state,
+      { payload: { whenId, thenId } },
+    ) => {
       state.items[whenId].thenIds.push(thenId);
     },
-    addAndToWhen: (state, { payload: { whenId, and } }) => addAndToItem(state, whenId, and),
-    deleteAndFromWhen: (state, { payload: { whenId, andId } }) => deleteAndFromItem(state, whenId, andId),
-    updateWhenAndText: updateAndText,
+    addAndToWhen: (
+      state,
+      { payload: { whenId, and } },
+    ) => {
+      addAndToItem(state, whenId, and);
+    },
+    deleteAndFromWhen: (
+      state,
+      { payload: { whenId, andId } },
+    ) => {
+      deleteAndFromItem(state, whenId, andId);
+    },
+    updateWhenAndText: (
+      state,
+      { payload: { andId, text } },
+    ) => {
+      updateAndText(state, andId, text);
+    },
   }
 });
 
