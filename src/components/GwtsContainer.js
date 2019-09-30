@@ -7,18 +7,18 @@ import Given from './Given';
 import './GwtsContainer.css';
 
 const GwtsContainer = ({
-  addGwt,
+  addGiven,
   givenIds
 }) => {
   return (
     <div className="gwts-container">
-      <button className="add-gwt-button top-button" onClick={() => addGwt(true)}>+ GWT </button>
+      <button className="add-gwt-button top-button" onClick={() => addGiven(true)}>+ GIVEN </button>
       <div className="givens-container">
         {givenIds.map(givenId => <Given key={givenId} givenId={givenId} />)}
       </div>
       {
         givenIds.length > 0 &&
-          <button className="add-gwt-button bottom-button" onClick={() => addGwt(false)}>+ GWT </button>
+          <button className="add-gwt-button bottom-button" onClick={() => addGiven(false)}>+ GIVEN </button>
       }
     </div>
   )
@@ -29,7 +29,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  addGwt: actions.given.add
+  addGiven: actions.given.add
 }
 
 export default connect(
