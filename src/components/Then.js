@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { selectors, actions } from './GwtStore';
+import { selectors, actions } from '../store';
 import And from './And';
 
 import './Then.css';

@@ -1,8 +1,8 @@
 import generateId from '../utils/generateId';
 
-export const makeWhen = ({ thenIds }) => ({
+export const makeWhen = () => ({
   id: generateId(),
   text: '',
-  thenIds,
+  thenIds: [],
   andIds: [],
 });

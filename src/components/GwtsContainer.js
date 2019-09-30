@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { selectors, actions } from './GwtStore';
+import { selectors, actions } from '../store';
 import Given from './Given';
 
 import './GwtsContainer.css';
@@ -29,7 +29,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  addGwt: actions.addGwt
+  addGwt: actions.given.add
 }
 
 export default connect(

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { selectors, actions } from './GwtStore';
+import { selectors, actions } from '../store';
 import Then from './Then';
 import And from './And';
 
@@ -49,7 +49,7 @@ const mapDispatchToProps = (dispatch, { whenId }) => ({
     id: whenId,
     text: event.target.value,
   })),
-  addThen: () => dispatch(actions.then.add(whenId)),
+  addThen: () => dispatch(actions.when.addThen(whenId)),
   addAnd: () => dispatch(actions.when.addAnd(whenId)),
   deleteAnd: andId => dispatch(actions.when.deleteAnd({
     andId, whenId,

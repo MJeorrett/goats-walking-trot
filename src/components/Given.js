@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { selectors, actions } from './GwtStore';
+import { selectors, actions } from '../store';
 import When from './When';
 import And from './And';
 
@@ -13,7 +13,7 @@ const Given = ({
   addAnd,
   deleteAnd,
   updateAndText,
-  addWhenThen,
+  addWhen,
   deleteGiven,
 }) => {
   return (
@@ -31,7 +31,7 @@ const Given = ({
           ))}
         </div>
         {given.whenIds.map(whenId => <When key={whenId} whenId={whenId} />)}
-        <button onClick={addWhenThen}>+ WHEN/THEN</button>
+        <button onClick={addWhen}>+ WHEN</button>
       </div>
     </div>
   )
@@ -58,7 +58,7 @@ const mapDispatchToProps = (dispatch, { givenId }) => ({
     andId,
     text,
   })),
-  addWhenThen: () => dispatch(actions.given.addWhenThen(givenId)),
+  addWhen: () => dispatch(actions.given.addWhen(givenId)),
   deleteGiven: () => dispatch(actions.given.delete(givenId)),
 });
 

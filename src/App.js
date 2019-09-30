@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import './App.css';
 
 import GwtsContainer from './components/GwtsContainer';
-import store from './components/GwtStore';
+import store from './store';
 
 function App() {
   return (
