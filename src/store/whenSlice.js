@@ -3,8 +3,15 @@ import { createSlice, createSelector } from 'redux-starter-kit';
 import { makeThen, makeAnd } from '../models';
 
 import {
-  createInitialState, addItem, deleteItems, updateItemText, addAndToItem, deleteAndFromItem, updateAndText,
-  selectItemById
+  createInitialState,
+  addItem,
+  deleteItems,
+  updateItemText,
+  addAndToItem,
+  deleteAndFromItem,
+  updateAndText,
+  selectItemById,
+  deleteItem
 } from './helpers';
 
 import * as thenSlice from './thenSlice';
@@ -17,6 +24,9 @@ const whenSlice = createSlice({
       { payload: { when, prepend } },
     ) => {
       addItem(state, when, prepend);
+    },
+    deleteWhen: (state, { payload }) => {
+      deleteItem(state, payload);
     },
     deleteManyWhens: (state, { payload }) => {
       deleteItems(state, payload);
@@ -32,6 +42,13 @@ const whenSlice = createSlice({
       { payload: { whenId, thenId } },
     ) => {
       state.items[whenId].thenIds.push(thenId);
+    },
+    deleteThenIdFromWhen: (
+      state,
+      { payload: { whenId, thenId: thenIdToDelete } },
+    ) => {
+      const when = state.items[whenId];
+      when.thenIds = when.thenIds.filter(thenId => thenId !== thenIdToDelete);
     },
     addAndToWhen: (
       state,
@@ -70,6 +87,13 @@ export const actions = {
   }),
   deleteAnd: whenSlice.actions.deleteAndFromWhen,
   updateAndText: whenSlice.actions.updateWhenAndText,
+  delete: id => (dispatch, getState) => {
+    const state = selectWhenState(getState());
+    const when = selectWhenById(state, id);
+    
+    dispatch(whenSlice.actions.deleteWhen(id));
+    dispatch(thenSlice.actions.deleteMany(when.thenIds));
+  },
   deleteMany: ids => (dispatch, getState) => {
     const state = getState();
     const whens = selectWhensByIds(selectWhenState(state), ids);
@@ -85,6 +109,10 @@ export const actions = {
       dispatch(whenSlice.actions.addThenIdToWhen({ whenId, thenId: then.id }));
     }
   },
+  deleteThen: (whenId, thenId) => (dispatch) => {
+    dispatch(whenSlice.actions.deleteThenIdFromWhen({ whenId, thenId }));
+    dispatch(thenSlice.actions.delete(thenId));
+  }
 };
 
 export const selectors = {

@@ -3,8 +3,15 @@ import { createSlice, createSelector } from 'redux-starter-kit';
 import { makeAnd } from '../models';
 
 import {
-  createInitialState, addItem, deleteItems, updateItemText, addAndToItem, deleteAndFromItem, updateAndText,
-  selectItemById
+  createInitialState,
+  addItem,
+  deleteItems,
+  updateItemText,
+  addAndToItem,
+  deleteAndFromItem,
+  updateAndText,
+  selectItemById,
+  deleteItem
 } from './helpers';
 
 const thenSlice = createSlice({
@@ -15,6 +22,12 @@ const thenSlice = createSlice({
       { payload: { then, prepend } }
     ) => {
       addItem(state, then, prepend);
+    },
+    deleteThen: (
+      state,
+      { payload },
+    ) => {
+      deleteItem(state, payload);
     },
     deleteManyThens: (
       state,
@@ -60,6 +73,7 @@ export const actions = {
   }),
   deleteAnd: thenSlice.actions.deleteAndFromThen,
   updateAndText: thenSlice.actions.updateThenAndText,
+  delete: thenSlice.actions.deleteThen,
   deleteMany: thenSlice.actions.deleteManyThens,
 }
 

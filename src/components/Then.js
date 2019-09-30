@@ -13,10 +13,12 @@ const Then = ({
   addAnd,
   deleteAnd,
   updateAndText,
+  deleteThen,
 }) => {
   return (
     <div className="then-container">
       <div className="flex-container">
+        <button className="delete-button" onClick={deleteThen}>X</button>
         <label>THEN</label>
         <input value={then.text} onChange={updateText} />
         <button onClick={addAnd}>+ AND</button>
@@ -38,7 +40,7 @@ const mapStateToProps = (state, { thenId }) => {
   });
 }
 
-const mapDispatchToProps = (dispatch, { thenId }) => ({
+const mapDispatchToProps = (dispatch, { thenId, whenId }) => ({
   updateText: event => dispatch(actions.then.updateText({
     id: thenId,
     text: event.target.value,
@@ -51,9 +53,12 @@ const mapDispatchToProps = (dispatch, { thenId }) => ({
     andId,
     text,
   })),
+  deleteThen: () => dispatch(actions.when.deleteThen(whenId, thenId)),
 })
 
 Then.propTypes = {
+  // TODO: See if this can be avoided
+  whenId: PropTypes.string.isRequired,
   thenId: PropTypes.string.isRequired,
 }
 

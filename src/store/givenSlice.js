@@ -3,7 +3,12 @@ import { createSlice, createSelector } from 'redux-starter-kit';
 import { makeWhen, makeAnd, makeGiven } from '../models';
 
 import {
-  createInitialState, addItem, deleteItem, updateItemText, addAndToItem, deleteAndFromItem, updateAndText,
+  createInitialState,
+  addItem,deleteItem,
+  updateItemText,
+  addAndToItem,
+  deleteAndFromItem,
+  updateAndText,
   selectItemById
 } from './helpers';
 
@@ -32,10 +37,16 @@ const givenSlice = createSlice({
     },
     addWhenIdToGiven: (
       state,
-      { payload },
+      { payload: { givenId, whenId } },
     ) => {
-      const { givenId, whenId } = payload;
       state.items[givenId].whenIds.push(whenId);
+    },
+    deleteWhenIdFromGiven: (
+      state,
+      { payload: { givenId, whenId: whenIdToDelete } },
+    ) => {
+      const given = state.items[givenId];
+      given.whenIds = given.whenIds.filter(whenId => whenId !== whenIdToDelete);
     },
     addAndToGiven: (
       state,
@@ -87,6 +98,10 @@ export const actions = {
       dispatch(givenSlice.actions.addWhenIdToGiven({ givenId, whenId: when.id }));
     }
   },
+  deleteWhen: (givenId, whenId) => (dispatch) => {
+    dispatch(givenSlice.actions.deleteWhenIdFromGiven({ givenId, whenId }));
+    dispatch(whenSlice.actions.delete(whenId));
+  }
 }
 
 const selectGivenState = state => state.given;

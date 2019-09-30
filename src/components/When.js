@@ -12,6 +12,7 @@ const When = ({
   when,
   updateText,
   addAnd,
+  deleteWhen,
   deleteAnd,
   updateAndText,
   addThen
@@ -19,6 +20,7 @@ const When = ({
   return (
     <div className="when-container">
       <div className="flex-container">
+        <button className="delete-button" onClick={deleteWhen}>X</button>
         <label>WHEN</label>
         <input value={when.text} onChange={updateText} />
         <button onClick={addAnd}>+ AND</button>
@@ -29,7 +31,7 @@ const When = ({
             <And key={and.id} and={and} updateText={updateAndText} deleteAnd={deleteAnd} />
           ))}
         </div>
-        {when.thenIds.map(thenId => <Then key={thenId} thenId={thenId} />)}
+        {when.thenIds.map(thenId => <Then key={thenId} whenId={when.id} thenId={thenId} />)}
         <button onClick={addThen}>+ THEN</button>
       </div>
     </div>
@@ -44,7 +46,7 @@ const mapStateToProps = (state, { whenId }) => {
   });
 }
 
-const mapDispatchToProps = (dispatch, { whenId }) => ({
+const mapDispatchToProps = (dispatch, { whenId, givenId }) => ({
   updateText: event => dispatch(actions.when.updateText({
     id: whenId,
     text: event.target.value,
@@ -58,9 +60,12 @@ const mapDispatchToProps = (dispatch, { whenId }) => ({
     andId,
     text,
   })),
+  deleteWhen: () => dispatch(actions.given.deleteWhen(givenId, whenId)),
 })
 
 When.propTypes = {
+  // TODO: avoid this if possible
+  givenId: PropTypes.string.isRequired,
   whenId: PropTypes.string.isRequired,
 }
 

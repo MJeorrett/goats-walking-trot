@@ -30,7 +30,7 @@ const Given = ({
             <And key={and.id} and={and} updateText={updateAndText} deleteAnd={deleteAnd} />
           ))}
         </div>
-        {given.whenIds.map(whenId => <When key={whenId} whenId={whenId} />)}
+        {given.whenIds.map(whenId => <When key={whenId} givenId={given.id} whenId={whenId} />)}
         <button onClick={addWhen}>+ WHEN</button>
       </div>
     </div>
