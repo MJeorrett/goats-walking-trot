@@ -73,7 +73,9 @@ export const actions = {
   }),
   deleteAnd: thenSlice.actions.deleteAndFromThen,
   updateAndText: thenSlice.actions.updateThenAndText,
+  // TODO: export separately and don't export from index (internal use only to maintain referential integrity)
   delete: thenSlice.actions.deleteThen,
+  // TODO: export separately and don't export from index (internal use only to maintain referential integrity)
   deleteMany: thenSlice.actions.deleteManyThens,
 }
 

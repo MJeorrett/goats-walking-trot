@@ -87,6 +87,7 @@ export const actions = {
   }),
   deleteAnd: whenSlice.actions.deleteAndFromWhen,
   updateAndText: whenSlice.actions.updateWhenAndText,
+  // TODO: export separately and don't export from index (internal use only to maintain referential integrity)
   delete: id => (dispatch, getState) => {
     const state = selectWhenState(getState());
     const when = selectWhenById(state, id);
@@ -94,6 +95,7 @@ export const actions = {
     dispatch(whenSlice.actions.deleteWhen(id));
     dispatch(thenSlice.actions.deleteMany(when.thenIds));
   },
+  // TODO: export separately and don't export from index (internal use only to maintain referential integrity)
   deleteMany: ids => (dispatch, getState) => {
     const state = getState();
     const whens = selectWhensByIds(selectWhenState(state), ids);
