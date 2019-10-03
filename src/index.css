@@ -5,3 +5,7 @@ body, button {
   -moz-osx-font-smoothing: grayscale;
   font-size: 21px;
 }
+
+input {
+  min-width: 1em;
+}
