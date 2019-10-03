@@ -1,9 +1,27 @@
 .given-container {
-  position: relative;
+  padding-bottom: 1em;
   border: 1px solid dodgerblue;
-  border-radius: 3px;
-  padding: 1em;
+  border-radius: 3px 3px 0 0;
 }
+
+.given-container .top {
+  border: 1px solid dodgerblue;
+  border-radius: 3px 3px 0 0;
+  padding: 1em;
+  padding-bottom: 0;
+  margin: -1px;
+}
+
+.given-container .top {
+  position: sticky;
+  top: 0;
+  background-color: white;
+  z-index: 3;
+  border-bottom: none;
+  border-radius: 3px 3px 0 0;
+  padding-bottom: 0;
+}
+
 
 .given-container .given-input,
 .given-container .given-label,
@@ -13,25 +31,19 @@
 
 .given-container .whens-container {
   padding-left: 1.5em;
-}
-
-.given-container .whens-container > *{
-  margin-bottom: 0.5em;
+  padding-right: 1em;
 }
 
 .given-container .given-input-container {
-  position: sticky;
-  top: 16px;
-  background-color: white;
-  z-index: 3;
   border: 1px solid #eee;
   border-radius: 2px;
 }
 
-.given-container .given-input-container .top-mask {
+.given-container .top .top-mask {
   position: absolute;
-    top: -1em;
-    background-color: white;
-    height: 1em;
-    width: 100%;
+  top: -1em;
+  background-color: white;
+  height: 1em;
+  width: 100%;
+  margin-top: -1px;
 }

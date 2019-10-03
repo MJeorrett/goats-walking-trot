@@ -1,13 +1,8 @@
-.when-container {
-  padding: 0.4em;
-  padding-right: 0;
-}
-
 .when-container > .flex-container {
   border: 1px solid #eee;
   border-radius: 2px;
   position: sticky;
-  top: 92px;
+  top: calc(78.79px + 1em);
   background-color: white;
   z-index: 2;
 }

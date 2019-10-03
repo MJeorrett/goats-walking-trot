@@ -18,12 +18,14 @@ const Given = ({
 }) => {
   return (
     <div className="given-container">
-      <div className="flex-container given-input-container">
+      <div className="top">
         <div class="top-mask"></div>
-        <button className="delete-button delete-given" onClick={deleteGiven}>X</button>
-        <label className="given-label">GIVEN</label>
-        <input className="given-input" value={given.text} onChange={updateText} />
-        <button onClick={addAnd}>+ AND</button>
+        <div className="flex-container given-input-container">
+          <button className="delete-button delete-given" onClick={deleteGiven}>X</button>
+          <label className="given-label">GIVEN</label>
+          <input className="given-input" value={given.text} onChange={updateText} />
+          <button onClick={addAnd}>+ AND</button>
+        </div>
       </div>
       <div className="whens-container">
         <div>
@@ -36,9 +38,9 @@ const Given = ({
             <When key={whenId} givenId={given.id} whenId={whenId} />
           </div>
         ))}
-      </div>
-      <div className="add-when-button">
-        <button onClick={addWhen}>+ WHEN</button>
+        <div className="add-when-button">
+          <button onClick={addWhen}>+ WHEN</button>
+        </div>
       </div>
     </div>
   )
