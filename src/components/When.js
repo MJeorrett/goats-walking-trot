@@ -19,7 +19,7 @@ const When = ({
 }) => {
   return (
     <>
-      <div className="flex-container">
+      <div className="flex-container when-input-container">
         <button className="delete-button" onClick={deleteWhen}>X</button>
         <label>WHEN</label>
         <input value={when.text} onChange={updateText} />
