@@ -1,8 +1,8 @@
 .given-container {
+  position: relative;
   border: 1px solid dodgerblue;
   border-radius: 3px;
   padding: 1em;
-  padding-right: 2.5em;
 }
 
 .given-container .given-input,
@@ -15,6 +15,23 @@
   padding-left: 1.5em;
 }
 
-.given-container .whens-container > *:not(:last-child) {
+.given-container .whens-container > *{
   margin-bottom: 0.5em;
+}
+
+.given-container .given-input-container {
+  position: sticky;
+  top: 16px;
+  background-color: white;
+  z-index: 3;
+  border: 1px solid #eee;
+  border-radius: 2px;
+}
+
+.given-container .given-input-container .top-mask {
+  position: absolute;
+    top: -1em;
+    background-color: white;
+    height: 1em;
+    width: 100%;
 }

@@ -1,7 +1,15 @@
 .when-container {
+  padding: 0.4em;
+  padding-right: 0;
+}
+
+.when-container > .flex-container {
   border: 1px solid #eee;
   border-radius: 2px;
-  padding: 0.4em;
+  position: sticky;
+  top: 92px;
+  background-color: white;
+  z-index: 2;
 }
 
 .when-container .thens-container {

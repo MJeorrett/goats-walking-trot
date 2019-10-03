@@ -18,7 +18,7 @@ const When = ({
   addThen
 }) => {
   return (
-    <div className="when-container">
+    <>
       <div className="flex-container">
         <button className="delete-button" onClick={deleteWhen}>X</button>
         <label>WHEN</label>
@@ -34,7 +34,7 @@ const When = ({
         {when.thenIds.map(thenId => <Then key={thenId} whenId={when.id} thenId={thenId} />)}
         <button onClick={addThen}>+ THEN</button>
       </div>
-    </div>
+    </>
   )
 }
 
