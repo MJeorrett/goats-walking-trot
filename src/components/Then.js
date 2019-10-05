@@ -33,7 +33,7 @@ const Then = ({
         <button tabIndex="-1" className="delete-button" onClick={deleteThen}>X</button>
         <label>THEN</label>
         <input value={then.text} onChange={updateText} />
-        <button tabIndex="-1" className={cns.addAnd} onClick={addAnd}>+ AND</button>
+        <button tabIndex="-1" className={cns.addAnd} onClick={addAnd}>+ and</button>
       </div>
       <div className={cns.ands}>
         {then.ands.map(and => (

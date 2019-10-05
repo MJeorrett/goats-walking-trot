@@ -22,6 +22,9 @@ const useStyles = createUseStyles({
   whenContents: {
     marginLeft: '1rem',
   },
+  addThen: {
+    fontSize: '1.3rem',
+  },
   addAnd: {
     color: 'lightGrey',
   },
@@ -43,7 +46,7 @@ const When = ({
         <button tabIndex="-1" className="delete-button" onClick={deleteWhen}>X</button>
         <label>WHEN</label>
         <input value={when.text} onChange={updateText} />
-        <button tabIndex="-1" className={cns.addAnd} onClick={addAnd}>+ AND</button>
+        <button tabIndex="-1" className={cns.addAnd} onClick={addAnd}>+ and</button>
       </div>
       <div className={cns.whenContents}>
         <div>
@@ -55,7 +58,7 @@ const When = ({
           {when.thenIds.map(thenId => <Then key={thenId} whenId={when.id} thenId={thenId} />)}
         </div>
       </div>
-      <button tabIndex="-1" onClick={addThen}>+ THEN</button>
+      <button className={cns.addThen} tabIndex="-1" onClick={addThen}>+ THEN</button>
     </div>
   )
 }

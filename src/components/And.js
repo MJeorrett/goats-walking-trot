@@ -30,7 +30,7 @@ const And = ({
       >
         X
       </button>
-      <label for={`and-${and.id}`} className={cns.label}>AND</label>
+      <label for={`and-${and.id}`} className={cns.label}>and</label>
       <input id={`and-${and.id}`} value={and.text} onChange={event => updateText(and.id, event.target.value)}/>
     </div>
   );

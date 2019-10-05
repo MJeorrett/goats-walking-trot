@@ -23,10 +23,11 @@ button {
 
 button:active {
   background-color: #e0e8f8;
+  border-radius: 1em;
 }
 
 button.delete-button:active {
-  background-color: #f8e0e0;
+  background-color: rgba(0,0,0,0);
 }
 
 button:hover,
