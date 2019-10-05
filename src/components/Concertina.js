@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import useStyles from './Concertina.styles';
 
@@ -27,6 +28,13 @@ const Concertina = ({
       </div>
     </div>
   )
-}
+};
+
+Concertina.propTypes = {
+  stopMarginTop: PropTypes.string.isRequired,
+  headerContent: PropTypes.func.isRequired,
+  mainContent: PropTypes.func.isRequired,
+  footerContent: PropTypes.func.isRequired,
+};
 
 export default Concertina;
