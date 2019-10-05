@@ -1,12 +1,33 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { createUseStyles } from 'react-jss';
 
 import { selectors, actions } from '../store';
 import When from './When';
 import And from './And';
-import Concertina from './Concertina';
 
-import './Given.css';
+const useStyles = createUseStyles({
+  container: {
+    borderBottom: '1px solid lightGrey',
+    paddingBottom: '0.3rem',
+  },
+  given: {
+    backgroundColor: 'white',
+    borderBottom: '1px dotted lightGrey',
+    display: 'flex',
+    fontSize: '1.6rem',
+    position: 'sticky',
+    top: '0',
+    zIndex: '10',
+    paddingBottom: '1px',
+  },
+  ands: {
+    marginLeft: '1rem',
+  },
+  addAnd: {
+    color: 'lightGrey',
+  }
+})
 
 const Given = ({
   given,
@@ -17,41 +38,25 @@ const Given = ({
   addWhen,
   deleteGiven,
 }) => {
+  const cns = useStyles();
   return (
-    <Concertina
-      borderStyle='1px solid dodgerBlue'
-      borderRadius='3px'
-      stopMarginTop='1em'
-      headerContent={() => (
-        <div className="flex-container given-input-container">
-          <button className="delete-button" onClick={deleteGiven}>X</button>
-          <label className="given-label">GIVEN</label>
-          <input className="given-input" value={given.text} onChange={updateText} />
-          <button onClick={addAnd}>+ AND</button>
-        </div>
-      )}
-      mainContent={() => (
-        <>
-          <div>
-            {given.ands.map(and => (
-              <And key={and.id} and={and} updateText={updateAndText} deleteAnd={deleteAnd} />
-            ))}
-          </div>
-          {given.whenIds.length > 0 &&
-            <div className="whens">
-              {given.whenIds.map(whenId => (
-                <When key={whenId} givenId={given.id} whenId={whenId} />
-              ))}
-            </div>
-          }
-        </>
-      )}
-      footerContent={() => (
-        <div className="add-when-container">
-          <button onClick={addWhen}>+ WHEN</button>
-        </div>
-      )}
-    />
+    <div className={cns.container}>
+      <div className={cns.given}>
+        <button tabIndex="-1" className="delete-button" onClick={deleteGiven}>X</button>
+        <label>GIVEN</label>
+        <input value={given.text} onChange={updateText} />
+        <button tabIndex="-1" className={cns.addAnd} onClick={addAnd}>+ AND</button>
+      </div>
+      <div className={cns.ands}>
+        {given.ands.map(and => (
+          <And key={and.id} and={and} updateText={updateAndText} deleteAnd={deleteAnd} />
+        ))}
+      </div>
+      {given.whenIds.map(whenId => (
+        <When key={whenId} givenId={given.id} whenId={whenId} />
+      ))}
+      <button tabIndex="-1" onClick={addWhen}>+ WHEN</button>
+    </div>
   )
 };
 

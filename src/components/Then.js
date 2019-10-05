@@ -1,11 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { createUseStyles } from 'react-jss';
 
 import { selectors, actions } from '../store';
 import And from './And';
 
-import './Then.css';
+const useStyles = createUseStyles({
+  then: {
+    display: 'flex',
+  },
+  ands: {
+    marginLeft: '1rem',
+  },
+  addAnd: {
+    color: 'lightGrey',
+  },
+});
 
 const Then = ({
   then,
@@ -15,20 +26,21 @@ const Then = ({
   updateAndText,
   deleteThen,
 }) => {
+  const cns = useStyles();
   return (
-    <div className="then-container">
-      <div className="flex-container">
-        <button className="delete-button" onClick={deleteThen}>X</button>
+    <>
+      <div className={cns.then}>
+        <button tabIndex="-1" className="delete-button" onClick={deleteThen}>X</button>
         <label>THEN</label>
         <input value={then.text} onChange={updateText} />
-        <button onClick={addAnd}>+ AND</button>
+        <button tabIndex="-1" className={cns.addAnd} onClick={addAnd}>+ AND</button>
       </div>
-      <div className="ands-container">
+      <div className={cns.ands}>
         {then.ands.map(and => (
           <And key={and.id} and={and} updateText={updateAndText} deleteAnd={deleteAnd} />
         ))}
       </div>
-    </div>
+    </>
   )
 }
 

@@ -1,12 +1,31 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { createUseStyles } from 'react-jss';
 
 import { selectors, actions } from '../store';
 import Then from './Then';
 import And from './And';
 
-import './When.css';
+const useStyles = createUseStyles({
+  whenContainer: {
+    marginLeft: '1rem',
+  },
+  when: {
+    backgroundColor: 'white',
+    borderBottom: '1px dotted lightGrey',
+    display: 'flex',
+    fontSize: '1.3rem',
+    position: 'sticky',
+    top: '3.2rem',
+  },
+  whenContents: {
+    marginLeft: '1rem',
+  },
+  addAnd: {
+    color: 'lightGrey',
+  },
+});
 
 const When = ({
   when,
@@ -17,24 +36,27 @@ const When = ({
   updateAndText,
   addThen
 }) => {
+  const cns = useStyles();
   return (
-    <>
-      <div className="flex-container when-input-container">
-        <button className="delete-button" onClick={deleteWhen}>X</button>
+    <div className={cns.whenContainer}>
+      <div className={cns.when}>
+        <button tabIndex="-1" className="delete-button" onClick={deleteWhen}>X</button>
         <label>WHEN</label>
         <input value={when.text} onChange={updateText} />
-        <button onClick={addAnd}>+ AND</button>
+        <button tabIndex="-1" className={cns.addAnd} onClick={addAnd}>+ AND</button>
       </div>
-      <div className="thens-container">
+      <div className={cns.whenContents}>
         <div>
           {when.ands.map(and => (
             <And key={and.id} and={and} updateText={updateAndText} deleteAnd={deleteAnd} />
           ))}
         </div>
-        {when.thenIds.map(thenId => <Then key={thenId} whenId={when.id} thenId={thenId} />)}
-        <button onClick={addThen}>+ THEN</button>
+        <div className={cns.thens}>
+          {when.thenIds.map(thenId => <Then key={thenId} whenId={when.id} thenId={thenId} />)}
+        </div>
       </div>
-    </>
+      <button tabIndex="-1" onClick={addThen}>+ THEN</button>
+    </div>
   )
 }
 

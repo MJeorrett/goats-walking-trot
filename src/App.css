@@ -14,53 +14,38 @@ p {
 button {
   border: 1px solid rgba(0,0,0,0);
   border-radius: 2px;
-  color: dodgerblue;
+  color: grey;
   cursor: pointer;
   background-color: white;
-  font-size: 1.2em;
-  padding: 0.1em 0.3em;
+  margin: auto;
   white-space: nowrap;
-  margin-top: auto;
-  margin-bottom: auto;
-}
-
-button.delete-button {
-  color: darkgrey;
-}
-
-button:focus {
-  border: 1px solid lightblue;
-}
-
-button.delete-button:focus {
-  border-color: lightpink;
-}
-
-button:hover {
-  border: 1px solid dodgerblue;
-}
-
-button.delete-button:hover {
-  color: tomato;
-  border-color: tomato;
 }
 
 button:active {
-  background-color: #f0f8f8;
+  background-color: #e0e8f8;
 }
 
 button.delete-button:active {
-  background-color: #f8f0f0;
+  background-color: #f8e0e0;
 }
 
-label, input {
-  font-size: 1.2em;
-  padding: 0.35em 0.4em 0.05em 0.4em;
-  margin: 5px;
+button:hover,
+button:active {
+  color: dodgerblue;
+}
+
+button.delete-button:hover,
+button.delete-button:active {
+  color: tomato;
+  font-weight: bold;
 }
 
 label {
-  color: darkgrey;
+  margin: auto;
+}
+
+label, button {
+  padding: 0.35em 0.4em 0.35em 0.4em;
 }
 
 input {
@@ -68,15 +53,20 @@ input {
   border: 1px solid rgba(0,0,0,0);
   border-radius: 2px;
   flex-grow: 1;
-  padding: 0.2em 0.4em;
+  padding: 0.15em 0.3em 0.15em 0.3em;
+  margin-top: 0;
+  margin-bottom: 0;
+  transition: margin 0.4s;
 }
 input:active,
 input:focus {
   border: 1px solid lightgrey;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
 }
 
 #app-container {
-  padding: 2em 4em;
+  padding: 5% 10%;
 }
 
 .flex-container {

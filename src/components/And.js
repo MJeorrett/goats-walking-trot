@@ -1,16 +1,37 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { createUseStyles } from 'react-jss';
+import classNames from 'classnames';
+
+const useStyles = createUseStyles({
+  container: {
+    display: 'flex',
+  },
+  label: {
+    color: 'grey',
+  },
+  deleteButton: {
+    fontWeight: 'light',
+  },
+});
 
 const And = ({
   and,
   updateText,
   deleteAnd,
 }) => {
+  const cns = useStyles();
   return (
-    <div className="flex-container">
-      <button tabIndex="-1" className="delete-button" onClick={() => deleteAnd(and.id)}>X</button>
-      <label>AND</label>
-      <input value={and.text} onChange={event => updateText(and.id, event.target.value)}/>
+    <div className={cns.container}>
+      <button
+        className={classNames(cns.deleteButton, 'delete-button')}
+        tabIndex="-1"
+        onClick={() => deleteAnd(and.id)}
+      >
+        X
+      </button>
+      <label for={`and-${and.id}`} className={cns.label}>AND</label>
+      <input id={`and-${and.id}`} value={and.text} onChange={event => updateText(and.id, event.target.value)}/>
     </div>
   );
 };

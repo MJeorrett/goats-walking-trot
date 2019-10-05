@@ -1,11 +1,14 @@
-body, button {
-  margin: 0;
-  font-family: sans-serif !important;
+* {
+  font-size: inherit;
+  font-family: 'Quicksand', sans-serif !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-size: 21px;
 }
 
 input {
   min-width: 1em;
+}
+
+html {
+  font-size: 26px;
 }
