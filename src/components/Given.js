@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { selectors, actions } from '../store';
 import When from './When';
 import And from './And';
+import Concertina from './Concertina';
 
 import './Given.css';
 
@@ -17,32 +18,37 @@ const Given = ({
   deleteGiven,
 }) => {
   return (
-    <div className="given-container">
-      <div className="top">
-        <div class="top-mask"></div>
+    <Concertina
+      headerContent={() => (
         <div className="flex-container given-input-container">
-          <button className="delete-button delete-given" onClick={deleteGiven}>X</button>
+          <button className="delete-button" onClick={deleteGiven}>X</button>
           <label className="given-label">GIVEN</label>
           <input className="given-input" value={given.text} onChange={updateText} />
           <button onClick={addAnd}>+ AND</button>
         </div>
-      </div>
-      <div className="whens-container">
-        <div>
-          {given.ands.map(and => (
-            <And key={and.id} and={and} updateText={updateAndText} deleteAnd={deleteAnd} />
-          ))}
-        </div>
-        {given.whenIds.map(whenId => (
-          <div className="when-container">
-            <When key={whenId} givenId={given.id} whenId={whenId} />
+      )}
+      mainContent={() => (
+        <>
+          <div>
+            {given.ands.map(and => (
+              <And key={and.id} and={and} updateText={updateAndText} deleteAnd={deleteAnd} />
+            ))}
           </div>
-        ))}
-        <div className="add-when-button">
+          {given.whenIds.length > 0 &&
+            <div className="whens">
+              {given.whenIds.map(whenId => (
+                <When key={whenId} givenId={given.id} whenId={whenId} />
+              ))}
+            </div>
+          }
+        </>
+      )}
+      footerContent={() => (
+        <div className="add-when-container">
           <button onClick={addWhen}>+ WHEN</button>
         </div>
-      </div>
-    </div>
+      )}
+    />
   )
 };
 

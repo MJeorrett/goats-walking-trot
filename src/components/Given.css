@@ -1,52 +1,24 @@
-.given-container {
-  padding-bottom: 1em;
-  border: 1px solid dodgerblue;
-  border-radius: 3px 3px 0 0;
-}
-
-.given-container .top {
-  border: 1px solid dodgerblue;
-  border-radius: 3px 3px 0 0;
-  padding: 1em;
-  padding-bottom: 0;
-  margin: -1px;
-}
-
-.given-container .top {
-  position: sticky;
-  top: 0;
-  background-color: white;
-  z-index: 3;
-  border-bottom: none;
-  border-radius: 3px 3px 0 0;
-  padding-bottom: 0;
-}
-
-
-.given-container .given-input,
-.given-container .given-label,
-.delete-given {
+.given-input-container .given-input,
+.given-input-container .given-label,
+.given-input-container .delete-button {
   font-size: 2em;
 }
 
-.given-container .whens-container {
-  padding-top: 1em;
-  padding-left: 1.5em;
-  padding-right: 1em;
+.given-input-container .given-input {
+  margin-right: 0.5rem;
 }
 
-.given-container .given-input-container {
-  border: 1px solid #eee;
+.given-input-container {
+  border-bottom: 1px solid #eee;
   border-radius: 2px;
-  padding-left: 0.5em;
-  padding-right: 1em;
+  padding: 0.5rem;
 }
 
-.given-container .top .top-mask {
-  position: absolute;
-  top: -1em;
-  background-color: white;
-  height: 1em;
-  width: 100%;
-  margin-top: -1px;
+.add-when-container {
+  border-top: 1px solid #eee;
+  padding: 0.5em;
+}
+
+.whens {
+  padding: 1em;
 }
