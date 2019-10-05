@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { createUseStyles } from 'react-jss';
 
@@ -42,12 +42,16 @@ const Given = ({
   deleteGiven,
 }) => {
   const cns = useStyles();
+  const inputRef = useRef();
+  useEffect(() => {
+    inputRef.current.focus();
+  }, []);
   return (
     <div className={cns.container}>
       <div className={cns.given}>
         <button tabIndex="-1" className="delete-button" onClick={deleteGiven}>X</button>
         <label>GIVEN</label>
-        <input value={given.text} onChange={updateText} />
+        <input value={given.text} onChange={updateText} ref={inputRef} />
         <button tabIndex="-1" className={cns.addAnd} onClick={addAnd}>+ and</button>
       </div>
       <div className={cns.ands}>

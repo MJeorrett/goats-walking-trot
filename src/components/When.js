@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createUseStyles } from 'react-jss';
@@ -40,12 +40,16 @@ const When = ({
   addThen
 }) => {
   const cns = useStyles();
+  const inputRef = useRef();
+  useEffect(() => {
+    inputRef.current.focus();
+  }, []);
   return (
     <div className={cns.whenContainer}>
       <div className={cns.when}>
         <button tabIndex="-1" className="delete-button" onClick={deleteWhen}>X</button>
         <label>WHEN</label>
-        <input value={when.text} onChange={updateText} />
+        <input value={when.text} onChange={updateText} ref={inputRef} />
         <button tabIndex="-1" className={cns.addAnd} onClick={addAnd}>+ and</button>
       </div>
       <div className={cns.whenContents}>

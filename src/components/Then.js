@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createUseStyles } from 'react-jss';
@@ -27,12 +27,16 @@ const Then = ({
   deleteThen,
 }) => {
   const cns = useStyles();
+  const inputRef = useRef();
+  useEffect(() => {
+    inputRef.current.focus();
+  }, []);
   return (
     <>
       <div className={cns.then}>
         <button tabIndex="-1" className="delete-button" onClick={deleteThen}>X</button>
         <label>THEN</label>
-        <input value={then.text} onChange={updateText} />
+        <input value={then.text} onChange={updateText} ref={inputRef} />
         <button tabIndex="-1" className={cns.addAnd} onClick={addAnd}>+ and</button>
       </div>
       <div className={cns.ands}>
