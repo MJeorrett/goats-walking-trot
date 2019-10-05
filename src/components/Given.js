@@ -19,6 +19,9 @@ const Given = ({
 }) => {
   return (
     <Concertina
+      borderStyle='1px solid dodgerBlue'
+      borderRadius='3px'
+      stopMarginTop='1em'
       headerContent={() => (
         <div className="flex-container given-input-container">
           <button className="delete-button" onClick={deleteGiven}>X</button>

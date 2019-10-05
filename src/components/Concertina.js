@@ -1,24 +1,28 @@
 import React from 'react';
 
-import './Concertina.css';
+import useStyles from './Concertina.styles';
 
 const Concertina = ({
   headerContent,
   mainContent,
   footerContent,
+  borderStyle,
+  borderRadius,
+  stopMarginTop,
 }) => {
+  const classNames = useStyles({ borderStyle, borderRadius, stopMarginTop });
   return (
-    <div className="concertina">
+    <div>
       <div>
-        <div className="padding-mask"></div>
-        <div className="header">
+        <div className={classNames.paddingMask}></div>
+        <div className={classNames.header}>
           {headerContent()}
         </div>
-        <div className="body">
+        <div className={classNames.body}>
           {mainContent()}
         </div>
       </div>
-      <div className="footer">
+      <div className={classNames.footer}>
         {footerContent()}
       </div>
     </div>
