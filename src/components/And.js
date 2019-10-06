@@ -34,7 +34,7 @@ const And = ({
       >
         X
       </button>
-      <label for={`and-${and.id}`} className={cns.label}>and</label>
+      <label htmlFor={`and-${and.id}`} className={cns.label}>and</label>
       <input
         id={`and-${and.id}`}
         value={and.text}
