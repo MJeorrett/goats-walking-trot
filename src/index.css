@@ -11,4 +11,5 @@ input {
 
 html {
   font-size: 26px;
+  scroll-behavior: smooth;
 }
