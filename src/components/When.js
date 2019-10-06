@@ -17,16 +17,22 @@ const useStyles = createUseStyles({
     display: 'flex',
     fontSize: '1.3rem',
     position: 'sticky',
-    top: '3.2rem',
+    top: '4.2rem',
+  },
+  ands: {
+    borderBottom: '1px dotted lightGrey',
+    paddingBottom: '1px',
   },
   whenContents: {
     marginLeft: '1rem',
   },
   addThen: {
-    fontSize: '1.3rem',
+    color: 'lightGrey',
+    marginLeft: '1.6rem',
   },
   addAnd: {
     color: 'lightGrey',
+    marginLeft: '0.6rem',
   },
 });
 
@@ -50,19 +56,19 @@ const When = ({
         <button tabIndex="-1" className="delete-button" onClick={deleteWhen}>X</button>
         <label>WHEN</label>
         <input value={when.text} onChange={updateText} ref={inputRef} />
-        <button tabIndex="-1" className={cns.addAnd} onClick={addAnd}>+ and</button>
       </div>
       <div className={cns.whenContents}>
-        <div>
+        <div className={cns.ands}>
           {when.ands.map(and => (
             <And key={and.id} and={and} updateText={updateAndText} deleteAnd={deleteAnd} />
           ))}
+          <button tabIndex="-1" className={cns.addAnd} onClick={addAnd}>+ and</button>
         </div>
         <div className={cns.thens}>
           {when.thenIds.map(thenId => <Then key={thenId} whenId={when.id} thenId={thenId} />)}
         </div>
       </div>
-      <button className={cns.addThen} tabIndex="-1" onClick={addThen}>+ THEN</button>
+      {when.thenIds.length === 0 && <button className={cns.addThen} tabIndex="-1" onClick={addThen}>+ THEN</button>}
     </div>
   )
 }

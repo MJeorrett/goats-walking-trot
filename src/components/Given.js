@@ -23,12 +23,17 @@ const useStyles = createUseStyles({
   },
   ands: {
     marginLeft: '1rem',
+    paddingBottom: '1px',
+    borderBottom: '1px dotted lightGrey',
   },
   addWhen: {
+    color: 'lightGrey',
     fontSize: '1.3rem',
+    marginLeft: '1.6rem',
   },
   addAnd: {
     color: 'lightGrey',
+    marginLeft: '0.6rem',
   }
 })
 
@@ -52,12 +57,12 @@ const Given = ({
         <button tabIndex="-1" className="delete-button" onClick={deleteGiven}>X</button>
         <label>GIVEN</label>
         <input value={given.text} onChange={updateText} ref={inputRef} />
-        <button tabIndex="-1" className={cns.addAnd} onClick={addAnd}>+ and</button>
       </div>
       <div className={cns.ands}>
         {given.ands.map(and => (
           <And key={and.id} and={and} updateText={updateAndText} deleteAnd={deleteAnd} />
-        ))}
+          ))}
+        <button tabIndex="-1" className={cns.addAnd} onClick={addAnd}>+ and</button>
       </div>
       {given.whenIds.map(whenId => (
         <When key={whenId} givenId={given.id} whenId={whenId} />

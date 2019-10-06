@@ -14,13 +14,17 @@ const useStyles = createUseStyles({
   addGiven: {
     fontSize: '1.6rem',
   },
+  topButtonContainer: {
+    borderBottom: p => p.givenIds.length > 0 ? '1px solid lightGrey' : 'none',
+    paddingBottom: '1px',
+  },
 });
 
 const GwtsContainer = ({
   addGiven,
   givenIds
 }) => {
-  const cns = useStyles();
+  const cns = useStyles({ givenIds });
   
   function renderAddGivenButton(clickHandler) {
     return (
@@ -30,15 +34,13 @@ const GwtsContainer = ({
 
   return (
     <div>
-
-      {renderAddGivenButton(() => addGiven(true))}
-
+      <div className={cns.topButtonContainer}>
+        {renderAddGivenButton(() => addGiven(true))}
+      </div>
       <div className={cns.givens}>
         {givenIds.map(givenId => <Given key={givenId} givenId={givenId} />)}
       </div>
-
       {givenIds.length > 0 && renderAddGivenButton(() => addGiven(false))}
-      
     </div>
   )
 }

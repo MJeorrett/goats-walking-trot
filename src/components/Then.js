@@ -12,9 +12,11 @@ const useStyles = createUseStyles({
   },
   ands: {
     marginLeft: '1rem',
+    borderBottom: '1px dotted lightGrey',
   },
   addAnd: {
     color: 'lightGrey',
+    paddingLeft: '0.6rem',
   },
 });
 
@@ -37,12 +39,12 @@ const Then = ({
         <button tabIndex="-1" className="delete-button" onClick={deleteThen}>X</button>
         <label>THEN</label>
         <input value={then.text} onChange={updateText} ref={inputRef} />
-        <button tabIndex="-1" className={cns.addAnd} onClick={addAnd}>+ and</button>
       </div>
       <div className={cns.ands}>
         {then.ands.map(and => (
           <And key={and.id} and={and} updateText={updateAndText} deleteAnd={deleteAnd} />
         ))}
+        <button tabIndex="-1" className={cns.addAnd} onClick={addAnd}>+ and</button>
       </div>
     </>
   )
