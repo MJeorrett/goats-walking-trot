@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createUseStyles } from 'react-jss';
@@ -47,12 +47,22 @@ const When = ({
 }) => {
   const cns = useStyles({ when });
   const inputRef = useRef();
+  const whenRef = useRef();
+  const [whenBottom, updateWhenBottom] = useState(0);
   useEffect(() => {
     inputRef.current.focus();
+    getAndUpdateWhenBottom();
+    window.addEventListener('scroll', getAndUpdateWhenBottom);
+    return () => {
+      window.removeEventListener('scroll', getAndUpdateWhenBottom);
+    }
   }, []);
+  function getAndUpdateWhenBottom() {
+    updateWhenBottom(whenRef.current.getBoundingClientRect().bottom);
+  }
   return (
     <div className={cns.whenContainer}>
-      <div className={cns.when}>
+      <div className={cns.when} ref={whenRef}>
         <button tabIndex="-1" className="delete-button" onClick={deleteWhen}>X</button>
         <label>WHEN</label>
         <input value={when.text} onChange={updateText} ref={inputRef} />
@@ -62,7 +72,13 @@ const When = ({
         {when.ands.length > 0 &&
           <div className={cns.ands}>
             {when.ands.map(and => (
-              <And key={and.id} and={and} updateText={updateAndText} deleteAnd={deleteAnd} />
+              <And
+                key={and.id}
+                and={and}
+                updateText={updateAndText}
+                deleteAnd={deleteAnd}
+                stickyParentBottom={whenBottom}
+                />
             ))}
           </div>
         }

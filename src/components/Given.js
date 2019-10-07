@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { createUseStyles } from 'react-jss';
 
@@ -48,12 +48,22 @@ const Given = ({
 }) => {
   const cns = useStyles({ given });
   const inputRef = useRef();
+  const givenRef = useRef();
+  const [givenBottom, updateGivenBottom] = useState(0);
   useEffect(() => {
     inputRef.current.focus();
+    getAndUpdateGivenBottom();
+    window.addEventListener('scroll', getAndUpdateGivenBottom);
+    return () => {
+      window.removeEventListener('scroll', getAndUpdateGivenBottom);
+    }
   }, []);
+  function getAndUpdateGivenBottom() {
+    updateGivenBottom(givenRef.current.getBoundingClientRect().bottom);
+  }
   return (
     <div className={cns.container}>
-      <div className={cns.given}>
+      <div className={cns.given} ref={givenRef}>
         <button tabIndex="-1" className="delete-button" onClick={deleteGiven}>X</button>
         <label>GIVEN</label>
         <input value={given.text} onChange={updateText} ref={inputRef} />
@@ -62,7 +72,13 @@ const Given = ({
       {given.ands.length > 0 &&
         <div className={cns.ands}>
           {given.ands.map(and => (
-            <And key={and.id} and={and} updateText={updateAndText} deleteAnd={deleteAnd} />
+            <And
+              key={and.id}
+              and={and}
+              updateText={updateAndText}
+              deleteAnd={deleteAnd}
+              stickyParentBottom={givenBottom}
+              />
           ))}
         </div>
       }

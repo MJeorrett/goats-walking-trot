@@ -19,11 +19,21 @@ const And = ({
   and,
   updateText,
   deleteAnd,
+  stickyParentBottom,
 }) => {
   const cns = useStyles();
   const inputRef = useRef();
   useEffect(() => {
     inputRef.current.focus();
+    
+    if (stickyParentBottom) {
+      setTimeout(() => {
+        const diff = stickyParentBottom - inputRef.current.getBoundingClientRect().top;
+        if (diff > 0) {
+          window.scrollBy(0, -diff - 10);
+        }
+      }, 500);
+    }
   }, []);
   return (
     <div className={cns.container}>
