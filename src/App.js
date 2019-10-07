@@ -11,7 +11,7 @@ function App() {
     <div id="app-container">
       <Provider store={store}>
         <h1>Goats Walking Trot</h1>
-        <p>A simple app for enabling the writing of terse GWT.</p>
+        <p>A simple app for enabling the writing of GWT.</p>
         <GwtsContainer />
       </Provider>
     </div>
