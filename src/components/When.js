@@ -13,7 +13,7 @@ const useStyles = createUseStyles({
   },
   when: {
     backgroundColor: 'white',
-    borderBottom: '1px dotted lightGrey',
+    borderBottom: data => data.when.ands.length === 0 ? '1px dotted lightGrey' : 'none',
     display: 'flex',
     fontSize: '1.3rem',
     position: 'sticky',
@@ -45,7 +45,7 @@ const When = ({
   updateAndText,
   addThen
 }) => {
-  const cns = useStyles();
+  const cns = useStyles({ when });
   const inputRef = useRef();
   useEffect(() => {
     inputRef.current.focus();
@@ -56,14 +56,16 @@ const When = ({
         <button tabIndex="-1" className="delete-button" onClick={deleteWhen}>X</button>
         <label>WHEN</label>
         <input value={when.text} onChange={updateText} ref={inputRef} />
+        <button tabIndex="-1" className={cns.addAnd} onClick={addAnd}>+ and</button>
       </div>
       <div className={cns.whenContents}>
-        <div className={cns.ands}>
-          {when.ands.map(and => (
-            <And key={and.id} and={and} updateText={updateAndText} deleteAnd={deleteAnd} />
-          ))}
-          <button tabIndex="-1" className={cns.addAnd} onClick={addAnd}>+ and</button>
-        </div>
+        {when.ands.length > 0 &&
+          <div className={cns.ands}>
+            {when.ands.map(and => (
+              <And key={and.id} and={and} updateText={updateAndText} deleteAnd={deleteAnd} />
+            ))}
+          </div>
+        }
         <div className={cns.thens}>
           {when.thenIds.map(thenId => <Then key={thenId} whenId={when.id} thenId={thenId} />)}
         </div>

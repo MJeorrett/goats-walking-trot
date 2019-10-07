@@ -8,6 +8,7 @@ import And from './And';
 
 const useStyles = createUseStyles({
   then: {
+    borderBottom: data => data.then.ands.length === 0 ? '1px dotted lightGrey' : 'none',
     display: 'flex',
   },
   ands: {
@@ -29,7 +30,7 @@ const Then = ({
   updateAndText,
   deleteThen,
 }) => {
-  const cns = useStyles();
+  const cns = useStyles({ then });
   const inputRef = useRef();
   useEffect(() => {
     inputRef.current.focus();
@@ -40,13 +41,15 @@ const Then = ({
         <button tabIndex="-1" className="delete-button" onClick={deleteThen}>X</button>
         <label>THEN</label>
         <input value={then.text} onChange={updateText} ref={inputRef} />
-      </div>
-      <div className={cns.ands}>
-        {then.ands.map(and => (
-          <And key={and.id} and={and} updateText={updateAndText} deleteAnd={deleteAnd} />
-        ))}
         <button tabIndex="-1" className={cns.addAnd} onClick={addAnd}>+ and</button>
       </div>
+      {then.ands.length > 0 &&
+        <div className={cns.ands}>
+          {then.ands.map(and => (
+            <And key={and.id} and={and} updateText={updateAndText} deleteAnd={deleteAnd} />
+          ))}
+        </div>
+      }
     </>
   )
 }

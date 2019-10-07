@@ -13,13 +13,13 @@ const useStyles = createUseStyles({
   },
   given: {
     backgroundColor: 'white',
-    borderBottom: '1px dotted lightGrey',
+    borderBottom: data => data.given.ands.length === 0 ? '1px dotted lightGrey' : 'none',
+    paddingBottom: '1px',
     display: 'flex',
     fontSize: '1.6rem',
     position: 'sticky',
     top: '0',
     zIndex: '10',
-    paddingBottom: '1px',
   },
   ands: {
     marginLeft: '1rem',
@@ -46,7 +46,7 @@ const Given = ({
   addWhen,
   deleteGiven,
 }) => {
-  const cns = useStyles();
+  const cns = useStyles({ given });
   const inputRef = useRef();
   useEffect(() => {
     inputRef.current.focus();
@@ -57,13 +57,15 @@ const Given = ({
         <button tabIndex="-1" className="delete-button" onClick={deleteGiven}>X</button>
         <label>GIVEN</label>
         <input value={given.text} onChange={updateText} ref={inputRef} />
-      </div>
-      <div className={cns.ands}>
-        {given.ands.map(and => (
-          <And key={and.id} and={and} updateText={updateAndText} deleteAnd={deleteAnd} />
-          ))}
         <button tabIndex="-1" className={cns.addAnd} onClick={addAnd}>+ and</button>
       </div>
+      {given.ands.length > 0 &&
+        <div className={cns.ands}>
+          {given.ands.map(and => (
+            <And key={and.id} and={and} updateText={updateAndText} deleteAnd={deleteAnd} />
+          ))}
+        </div>
+      }
       {given.whenIds.map(whenId => (
         <When key={whenId} givenId={given.id} whenId={whenId} />
       ))}
