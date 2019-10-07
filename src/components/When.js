@@ -17,7 +17,7 @@ const useStyles = createUseStyles({
     display: 'flex',
     fontSize: '1.3rem',
     position: 'sticky',
-    top: '4.2rem',
+    top: '3.4rem',
   },
   ands: {
     borderBottom: '1px dotted lightGrey',

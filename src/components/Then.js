@@ -13,6 +13,7 @@ const useStyles = createUseStyles({
   ands: {
     marginLeft: '1rem',
     borderBottom: '1px dotted lightGrey',
+    paddingBottom: '1px',
   },
   addAnd: {
     color: 'lightGrey',
