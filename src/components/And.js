@@ -6,6 +6,9 @@ import classNames from 'classnames';
 const useStyles = createUseStyles({
   container: {
     display: 'flex',
+    height: '0',
+    overflow: 'hidden',
+    transition: 'height 0.5s ease',
   },
   label: {
     color: 'grey',
@@ -22,8 +25,10 @@ const And = ({
   stickyParentBottom,
 }) => {
   const cns = useStyles();
+  const containerRef = useRef();
   const inputRef = useRef();
   useEffect(() => {
+    containerRef.current.style.height = '2.1em';
     inputRef.current.focus();
     
     if (stickyParentBottom) {
@@ -36,11 +41,14 @@ const And = ({
     }
   }, []);
   return (
-    <div className={cns.container}>
+    <div className={cns.container} ref={containerRef}>
       <button
         className={classNames(cns.deleteButton, 'delete-button')}
         tabIndex="-1"
-        onClick={() => deleteAnd(and.id)}
+        onClick={() => {
+          containerRef.current.style.height = '0';
+          setTimeout(() => deleteAnd(and.id), 500);
+        }}
       >
         X
       </button>
