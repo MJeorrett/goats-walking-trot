@@ -39,7 +39,7 @@ const And = ({
         }
       }, 500);
     }
-  }, []);
+  }, [stickyParentBottom]);
   return (
     <div className={cns.container} ref={containerRef}>
       <button
